@@ -1,0 +1,7 @@
+- name: Install and Run Docker containers
+  hosts: unicorn
+  roles:
+    - role: deploy-compose
+      vars:
+        compose_file: apps/deluge/docker-compose.yml
+        app_name: Deluge

@@ -1,0 +1,22 @@
+---
+- name: Ensures {{ docker_path }} dir exists
+  file: path={{ docker_path }} state=directory
+- name: Copy Docker Compose File | {{ docker_compose_file }} -> {{ docker_path }}
+  template:
+    src: "{{ docker_compose_file }}"
+    dest: "{{ docker_path }}"
+  register: copied_compose_file
+- name: Copy required external files
+  copy: 
+    src: "{{ item }}" 
+    dest: "{{ docker_path }}"
+  with_items: "{{ require_files }}"
+  when: require_files is defined and (require_files | length > 0)
+  register: copied_files
+- name: "Start Docker Compose App: {{ docker_app_name }}"
+  community.docker.docker_compose:
+    project_src: "{{ docker_path }}"
+    build: yes
+    restarted: yes
+    remove_orphans: yes
+  when: copied_compose_file.changed or copied_files.changed
