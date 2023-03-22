@@ -2,3 +2,4 @@
 docker_compose_file: "{{ compose_file }}"
 docker_app_name: "{{ app_name }}"
 docker_path: "{{ ansible_env.HOME }}/docker/{{ app_name }}/"
+require_files: "{{ files }}"

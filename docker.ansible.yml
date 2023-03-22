@@ -5,3 +5,8 @@
       vars:
         compose_file: apps/deluge/docker-compose.yml
         app_name: Deluge
+    - role: deploy-compose
+      vars:
+        compose_file: apps/pihole/docker-compose.yml
+        app_name: pihole
+        files: ['apps/pihole/pihole.env']
