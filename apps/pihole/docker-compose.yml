@@ -10,17 +10,19 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       # - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
-      - "80:80/tcp"
+      - "10000:10000/tcp"
     environment:
       TZ: 'Europe/Dublin'
       PIHOLE_DNS_: 9.9.9.9;1.1.1.1
       WEBTHEME: default-dark
+      WEB_PORT: 10000
     env_file:
       - pihole.env
     # Volumes store your data between container upgrades
     volumes:
       - "${HOME}/.pihole/etc-pihole:/etc/pihole"
       - "${HOME}/.pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
+      - ./custom.list:/etc/etc-pihole
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed

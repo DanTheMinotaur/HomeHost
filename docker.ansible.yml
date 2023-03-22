@@ -1,6 +1,17 @@
+---
+- name: Setup Docker Things
+  hosts: unicorn
+  tasks:
+    - name: Create Traefik Network
+      shell: docker network create traefik-proxy || true
 - name: Install and Run Docker containers
   hosts: unicorn
   roles:
+    - role: deploy-compose
+      vars:
+        compose_file: apps/traefik/docker-compose.yml
+        app_name: Traefik
+        files: ['apps/traefik/traefik.toml']
     - role: deploy-compose
       vars:
         compose_file: apps/deluge/docker-compose.yml
