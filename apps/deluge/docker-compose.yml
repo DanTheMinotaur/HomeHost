@@ -11,8 +11,7 @@ services:
       - DELUGE_LOGLEVEL=error #optional
     volumes:
       - "${HOME}/.config/deluge/:/config"
-      # - "${MOUNT}/Downloads":/mnt/Downloads
-      # - "${MOUNT}/.downloads":/mnt/.downloads
+      - "/media/USB/:/mount/"
     ports:
       - 8112:8112
       - 6881:6881
