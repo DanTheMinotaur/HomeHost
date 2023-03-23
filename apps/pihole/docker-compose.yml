@@ -16,14 +16,29 @@ services:
       PIHOLE_DNS_: 9.9.9.9;1.1.1.1
       WEBTHEME: default-dark
       WEB_PORT: 10000
+    dns:
+      - 127.0.0.1
+      - 9.9.9.9
     env_file:
       - pihole.env
     # Volumes store your data between container upgrades
     volumes:
       - "${HOME}/.pihole/etc-pihole:/etc/pihole"
       - "${HOME}/.pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
-      - ./custom.list:/etc/etc-pihole
+      - ./custom.list:/etc/pihole/custom.list
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
     restart: unless-stopped
+    labels:
+      - "traefik.http.routers.pihole.rule=Host(`pihole.local`)"
+      - "traefik.http.routers.pihole.service=api@internal"
+      - "traefik.http.routers.pihole.entrypoints=web"
+      - "traefik.http.services.pihole.loadbalancer.server.port=10000"
+      - "traefik.http.routers.pihole.service=pihole"
+      - "traefik.enable=true"
+    networks: 
+      - "traefik-proxy"
+networks:
+  "traefik-proxy":
+    external: true
