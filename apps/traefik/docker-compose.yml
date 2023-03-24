@@ -11,13 +11,14 @@ services:
       # The HTTP port
       - "80:80"
       # The Web UI (enabled by --api.insecure=true)
-      # - "8080:8080"
+      - "8080:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/traefik.toml
     restart: unless-stopped
     labels:
+      - "traefik.http.routers.traefik.entrypoints=web"
       - "traefik.http.routers.dashboard.rule=Host(`box.local`)"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.enable=true"

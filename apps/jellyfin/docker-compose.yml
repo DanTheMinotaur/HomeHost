@@ -9,7 +9,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - "${HOME}/.config/deluge/:/config"
+      - "${HOME}/.config/jellyfin/:/config"
       - "/media/USB/:/mount/"
     ports:
       - 8096:8096
