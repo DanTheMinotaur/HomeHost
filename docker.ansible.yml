@@ -28,3 +28,8 @@
       vars:
         compose_file: apps/jellyfin/docker-compose.yml
         app_name: Jellyfin
+    - role: deploy-compose
+      vars:
+        compose_file: apps/radarr/docker-compose.yml
+        app_name: Radarr
+      
