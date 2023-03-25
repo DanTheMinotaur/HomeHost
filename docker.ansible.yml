@@ -32,4 +32,8 @@
       vars:
         compose_file: apps/radarr/docker-compose.yml
         app_name: Radarr
+    - role: deploy-compose
+      vars:
+        compose_file: apps/heimdall/docker-compose.yml
+        app_name: Heimdall
       
