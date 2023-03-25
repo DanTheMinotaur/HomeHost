@@ -36,4 +36,11 @@
       vars:
         compose_file: apps/heimdall/docker-compose.yml
         app_name: Heimdall
-      
+    - role: deploy-compose
+      vars:
+        compose_file: apps/sonarr/docker-compose.yml
+        app_name: Sonarr
+    - role: deploy-compose
+      vars:
+        compose_file: apps/netdata/docker-compose.yml
+        app_name: Netdata
