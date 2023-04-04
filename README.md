@@ -9,6 +9,11 @@ Copy SSH Key
 ssh-copy-id -i ~/.ssh/id_ed25519 dan@192.168.1.1
 ```
 
+nix-install plugin
+```shell
+ansible-galaxy install danielrolls.nix
+```
+
 ## Debian Installation
 
 - Docker

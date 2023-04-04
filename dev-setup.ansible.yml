@@ -1,0 +1,7 @@
+---
+- name: Install Nix Packages
+  hosts: localhost
+  roles:
+  - role: danielrolls.nix
+    nix_commands:
+    - "nix-shell -p nix-info --command nix-info" 
