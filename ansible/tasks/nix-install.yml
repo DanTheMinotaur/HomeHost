@@ -1,0 +1,8 @@
+---
+- name: Check {{ item }} is installed
+  shell: nix-env -q {{ item }}
+  register: install_status
+  ignore_errors: true
+- name: Install {{ item }}
+  shell: nix-env --install {{ item }}
+  when: install_status.stderr

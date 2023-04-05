@@ -1,0 +1,10 @@
+---
+nix_packages: 
+  - starship
+  - fish
+  - rclone
+  - exa
+  - bat
+  - micro
+  - hwinfo
+  - neofetch
