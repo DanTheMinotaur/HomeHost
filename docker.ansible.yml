@@ -4,19 +4,22 @@
   tasks:
     - name: Create Traefik Network
       shell: docker network create traefik-proxy || true
-- name: Install and Run Docker containers
-  hosts: unicorn
-  roles:
-    - role: deploy-compose
+    - name: Traefic
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/traefik/docker-compose.yml
         app_name: Traefik
         files: ['apps/traefik/traefik.toml']
-    - role: deploy-compose
+    - name: Deluge
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/deluge/docker-compose.yml
         app_name: Deluge
-    - role: deploy-compose
+    - name: pi-hole
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/pihole/docker-compose.yml
         app_name: pihole
@@ -24,23 +27,33 @@
           'apps/pihole/pihole.env',
           'apps/pihole/custom.list'
         ]
-    - role: deploy-compose
+    - name: Jellyfin
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/jellyfin/docker-compose.yml
-        app_name: Jellyfin
-    - role: deploy-compose
+        app_name: jellyfin
+    - name: Radarr
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/radarr/docker-compose.yml
-        app_name: Radarr
-    - role: deploy-compose
+        app_name: radarr
+    - name: Heimdall
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/heimdall/docker-compose.yml
-        app_name: Heimdall
-    - role: deploy-compose
+        app_name: heimdall
+    - name: Sonarr
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/sonarr/docker-compose.yml
-        app_name: Sonarr
-    - role: deploy-compose
+        app_name: sonarr
+    - name: Netdata
+      include_role:
+        name: deploy-compose
       vars:
         compose_file: apps/netdata/docker-compose.yml
-        app_name: Netdata
+        app_name: netdata

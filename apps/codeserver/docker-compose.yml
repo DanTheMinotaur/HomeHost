@@ -12,3 +12,4 @@ services:
         environment:
             - DOCKER_USER=$USER
         image: 'codercom/code-server:latest'
+        restart: unless-stopped
