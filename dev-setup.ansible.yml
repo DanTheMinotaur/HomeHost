@@ -1,6 +1,6 @@
 ---
 - name: Install Nix Packages
-  hosts: unicorn, trinity
+  hosts: unicorn, trinity, localhost
   vars_files:
     - packages.yml
   # roles:
