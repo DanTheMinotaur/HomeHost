@@ -31,3 +31,9 @@ pip install docker-compose
 ```shell
 ansible-playbook docker.ansible.yml
 ```
+
+## Run Dev setup
+
+```shell
+ansible-playbook dev-setup.ansible.yml
+```
