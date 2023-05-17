@@ -1,0 +1,27 @@
+---
+docker_apps:
+  - compose_file: apps/traefik/docker-compose.yml
+    app_name: traefik
+    files: ['apps/traefik/traefik.toml']
+  - compose_file: apps/deluge/docker-compose.yml
+    app_name: Deluge
+  - compose_file: apps/pihole/docker-compose.yml
+    app_name: Pihole
+    files: [
+      'apps/pihole/pihole.env',
+      'apps/pihole/custom.list'
+    ]
+  - compose_file: apps/jellyfin/docker-compose.yml
+    app_name: Jellyfin
+  - compose_file: apps/radarr/docker-compose.yml
+    app_name: Radarr
+  - compose_file: apps/heimdall/docker-compose.yml
+    app_name: Heimdall
+  - compose_file: apps/sonarr/docker-compose.yml
+    app_name: Sonarr
+  - compose_file: apps/netdata/docker-compose.yml
+    app_name: Netdata
+  - compose_file: apps/codeserver/docker-compose.yml
+    app_name: VSCodeServer
+  - compose_file: apps/homeassistant/docker-compose.yml
+    app_name: HomeAssistant

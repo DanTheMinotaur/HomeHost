@@ -1,19 +1,24 @@
 ---
-- name: Ensures {{ docker_path }} dir exists
+- name: "Set variables"
+  set_fact:
+    docker_path: "{{ ansible_env.HOME }}/docker/{{ app_name }}/"
+- name: "Ensures {{ docker_path }} dir exists"
   file: path={{ docker_path }} state=directory
-- name: Copy Docker Compose File | {{ docker_compose_file }} -> {{ docker_path }}
+- name: "Copy Docker Compose File | {{ compose_file }} -> {{ docker_path }}"
   template:
-    src: "{{ docker_compose_file }}"
+    src: "{{ compose_file }}"
     dest: "{{ docker_path }}"
   register: copied_compose_file
 - name: Copy required external files
   copy: 
-    src: "{{ item }}" 
+    src: "{{ file }}" 
     dest: "{{ docker_path }}"
-  with_items: "{{ require_files }}"
+  with_items: "{{ files }}"
+  loop_control:
+    loop_var: file
   when: require_files is defined and (require_files | length > 0)
   register: copied_files
-- name: "Start Docker Compose App: {{ docker_app_name }}"
+- name: "Start Docker Compose App: {{ app_name }}"
   community.docker.docker_compose:
     project_src: "{{ docker_path }}"
     build: yes

@@ -2,7 +2,7 @@
 - name: Install Nix Packages
   hosts: unicorn, trinity, localhost
   vars_files:
-    - packages.yml
+    - data/packages.yml
   # roles:
   # - role: danielrolls.nix
   tasks:
