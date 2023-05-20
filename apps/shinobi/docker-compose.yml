@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+    shinobi-systems:
+        container_name: Shinobi
+        ports:
+            - '8080:8080/tcp'
+        volumes:
+            - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
+            - '$HOME/.config/shinobi/config:/config:rw'
+            - '$HOME/.config/shinobi/customAutoLoad:/home/Shinobi/libs/customAutoLoad:rw'
+            - '$HOME/.config/shinobi/database:/var/lib/mysql:rw'
+            - '$HOME/.config/shinobi/plugins:/home/Shinobi/plugins:rw'
+            - '/media/USB/hdd1/shinobi/videos:/home/Shinobi/videos:rw'
+            - '/etc/localtime:/etc/localtime:ro'
+        image: 'registry.gitlab.com/shinobi-systems/shinobi:dev'
