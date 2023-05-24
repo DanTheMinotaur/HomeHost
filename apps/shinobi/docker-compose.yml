@@ -1,9 +1,9 @@
 version: '3.3'
 services:
     shinobi-systems:
-        container_name: Shinobi
+        container_name: shinobi
         ports:
-            - '8080:8080/tcp'
+            - '2500:8080/tcp'
         volumes:
             - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
             - '$HOME/.config/shinobi/config:/config:rw'
@@ -13,3 +13,4 @@ services:
             - '/media/USB/hdd1/shinobi/videos:/home/Shinobi/videos:rw'
             - '/etc/localtime:/etc/localtime:ro'
         image: 'registry.gitlab.com/shinobi-systems/shinobi:dev'
+        restart: unless-stopped

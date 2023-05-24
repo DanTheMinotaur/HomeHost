@@ -1,14 +1,15 @@
 ---
 - name: Setup Docker Things
-  hosts: unicorn
+  gather_facts: true
+  hosts: localhost, unicorn
   vars_files:
-    - data/docker_apps.yml
+    - data/docker_apps2.yml
   tasks:
     - name: Create Traefik Network
       shell: docker network create traefik-proxy || true
     - include_tasks: ansible/tasks/docker-compose-deploy.yml
-      loop: "{{ docker_apps }}"
+      loop: "{{ lookup('dict', docker_apps) }}"
       vars:
-        app_name: "{{ item.app_name }}"
-        compose_file: "{{ item.compose_file }}"
-        files: "{{ item.files }}"
+        app_name: "{{ item.key }}"
+        compose_file: "{{ item.value.compose_file }}"
+        files: "{{ item.value.files | default([]) }}"

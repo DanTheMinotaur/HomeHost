@@ -1,9 +1,9 @@
 version: '3.3'
 services:
     code-server:
-        container_name: code-server
+        container_name: codeserver
         ports:
-            - '8081:8080'
+            - '2100:8080'
         volumes:
             - '$HOME/.config:/home/coder/.config'
             - '$HOME/devel:/home/devel'

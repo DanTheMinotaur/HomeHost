@@ -11,5 +11,5 @@ services:
       - ${HOME}/.config/radarr/:/config
       - "/media/USB/:/mount/"
     ports:
-      - 7878:7878
+      - 2400:7878
     restart: unless-stopped

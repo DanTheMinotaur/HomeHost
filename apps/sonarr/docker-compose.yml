@@ -12,5 +12,5 @@ services:
       - ${HOME}/.config/sonarr/:/config
       - "/media/USB/:/mount/"
     ports:
-      - 8989:8989
+      - 2600:8989
     restart: unless-stopped

@@ -10,12 +10,12 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       # - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
-      - "10000:10000/tcp"
+      - "2300:2300/tcp"
     environment:
       TZ: 'Europe/Dublin'
       PIHOLE_DNS_: 9.9.9.9;1.1.1.1
       WEBTHEME: default-dark
-      WEB_PORT: 10000
+      WEB_PORT: 2300
     dns:
       - 127.0.0.1
       - 9.9.9.9

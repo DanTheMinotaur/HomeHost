@@ -10,14 +10,14 @@ services:
     volumes:
       - "${HOME}/.config/heimdall/:/config"
     ports:
-      - 11000:80
+      - 2000:80
       # - 443:443
     restart: unless-stopped
     labels:
       - "traefik.http.routers.heimdall.rule=Host(`home.local`)"
       - "traefik.http.routers.heimdall.service=api@internal"
       - "traefik.http.routers.heimdall.entrypoints=web"
-      - "traefik.http.services.heimdall.loadbalancer.server.port=11000"
+      - "traefik.http.services.heimdall.loadbalancer.server.port=3000"
       - "traefik.http.routers.heimdall.service=heimdall"
       - "traefik.enable=true"
     networks: 

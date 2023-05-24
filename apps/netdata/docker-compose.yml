@@ -5,7 +5,7 @@ services:
     container_name: netdata
     hostname: netdata.mediabox.local # set to fqdn of host
     ports:
-      - 19999:19999
+      - 2200:19999
     restart: unless-stopped
     cap_add:
       - SYS_PTRACE
