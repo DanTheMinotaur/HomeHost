@@ -1,0 +1,43 @@
+---
+- name: Setup scripts
+  gather_facts: true
+  hosts: unicorn
+  vars:
+    scripts_dir: "{{ansible_env.HOME}}/scripts"
+    systemd_dir: "{{ansible_env.HOME}}/systemd"
+  tasks:
+    - name: Create scripts dir
+      ansible.builtin.file: 
+        path: "{{scripts_dir}}"
+        state: directory
+    - name: Copy media sort script
+      ansible.builtin.copy:
+        src: scripts/mediasort.sh
+        dest: "{{scripts_dir}}"
+        mode: o+rx
+    - name: Create systemd services dir
+      ansible.builtin.file: 
+        path: "{{systemd_dir}}"
+        state: directory
+    - name: Copy systemd job
+      ansible.builtin.template:
+        src: "scripts/systemd/onboot.service.j2"
+        dest: "{{systemd_dir}}/mediasort.service"
+      vars:
+        script: "{{scripts_dir}}/mediasort.sh"
+        script_name: "media sort"
+    - name: Link systemd job
+      ansible.builtin.file:
+        src: "{{systemd_dir}}/mediasort.service"
+        dest: /etc/systemd/system/mediasort.service
+        state: link
+        owner: root
+        group: root
+      become: true
+    - name: Enable systemd service 
+      ansible.builtin.systemd:
+        name: mediasort
+        enabled: true
+        daemon_reload: true
+      become: true
+

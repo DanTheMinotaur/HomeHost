@@ -37,3 +37,9 @@ ansible-playbook docker.ansible.yml
 ```shell
 ansible-playbook dev-setup.ansible.yml
 ```
+
+## Setup server scripts
+
+```shell
+ansible-playbook scripts.ansible.yml --ask-become-pass
+```

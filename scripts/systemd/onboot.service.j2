@@ -1,0 +1,12 @@
+[Unit]
+Description=Run {{ script_name }} job on startup
+After=network.target
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart="{{ script }}"
+TimeoutStartSec=10
+
+[Install]
+WantedBy=default.target
