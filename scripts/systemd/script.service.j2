@@ -1,0 +1,9 @@
+
+[Unit]
+Description="Runs {{ script_path }}"
+
+[Service]
+ExecStart="{{ script_path }}"
+
+[Install]
+WantedBy=multi-user.target

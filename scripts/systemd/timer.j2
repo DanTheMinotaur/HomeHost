@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer for {{ script_name }}
+
+[Timer]
+OnCalendar={{ service_timer }}
+Unit="{{ service }}"
+
+[Install]
+WantedBy=multi-user.target

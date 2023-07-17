@@ -1,0 +1,72 @@
+---
+# Roles to setup basic systemd scripts with timers
+- name: Set Variables
+  set_fact:
+    systemd_dir: "{{ansible_env.HOME}}/systemd"
+    scripts_dir: "{{ansible_env.HOME}}/scripts"
+    systemd_path: "/etc/systemd/system/"
+    script_name: "{{ script | basename | split('.') | first }}"
+    service_name: "{{ script | basename | split('.') | first }}.service"
+    timer_name: "{{ script | basename | split('.') | first }}.timer"
+    
+- name: "Copy {{ script }}"
+  ansible.builtin.copy:
+    src: "{{ script }}"
+    dest: "{{ scripts_dir }}/"
+    mode: o+rx
+  when: script is defined
+
+- name: "Copy {{ service_name }}"
+  ansible.builtin.template:
+    src: "scripts/systemd/script.service.j2"
+    dest: "{{ systemd_dir }}/{{ service_name }}"
+  vars:
+    script_path: "{{ scripts_dir }}/{{ script | basename }}"
+  register: copied_service
+  when: script is defined
+
+- name: "Link {{ service_name }} to systemd"
+  ansible.builtin.file:
+    src: "{{ copied_service.dest }}"
+    dest: "/etc/systemd/system/{{ service_name }}"
+    state: link
+    owner: root
+    group: root
+  become: true
+  when: copied_service is defined
+
+- name: "Enable {{ service_name }} in systemd"  
+  ansible.builtin.systemd:
+    name: "{{ service_name }}"
+    enabled: true
+    daemon_reload: true
+  become: true
+  when: copied_service is defined
+
+- name: "Copy {{ timer_name }}"
+  ansible.builtin.template:
+    src: "scripts/systemd/timer.j2"
+    dest: "{{ systemd_dir }}/{{ script_name }}.timer"
+  vars:
+    service_timer: "{{ timer }}"
+    service: "{{ service_name }}"
+  register: copied_timer
+  when: timer is defined
+
+- name: "Link {{ timer_name }} to systemd"
+  ansible.builtin.file:
+    src: "{{ copied_timer.dest }}"
+    dest: "/etc/systemd/system/{{ timer_name }}"
+    state: link
+    owner: root
+    group: root
+  become: true
+  when: timer is defined
+
+- name: "Enable {{ timer_name }}"
+  ansible.builtin.systemd:
+    name: "{{ timer_name }}"
+    enabled: true
+    daemon_reload: true
+  become: true
+  when: timer is defined
