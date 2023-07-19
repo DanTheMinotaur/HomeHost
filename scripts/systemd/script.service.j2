@@ -1,9 +1,10 @@
-
 [Unit]
-Description="Runs {{ script_path }}"
+Description=Runs {{ script_path }}
+{% if wanted_timer %}
+Wants={{ wanted_timer }}
+{% endif %}
 
 [Service]
+Type=oneshot
 ExecStart="{{ script_path }}"
 
-[Install]
-WantedBy=multi-user.target

@@ -3,7 +3,7 @@ Description=Timer for {{ script_name }}
 
 [Timer]
 OnCalendar={{ service_timer }}
-Unit="{{ service }}"
+Unit={{ service }}
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=timers.target
