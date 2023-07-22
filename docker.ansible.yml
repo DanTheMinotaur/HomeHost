@@ -1,9 +1,9 @@
 ---
 - name: Setup Docker Things
   gather_facts: true
-  hosts: localhost, unicorn
+  hosts: unicorn
   vars_files:
-    - data/docker_apps2.yml
+    - data/docker_apps.yml
   tasks:
     - name: Create Traefik Network
       shell: docker network create traefik-proxy || true

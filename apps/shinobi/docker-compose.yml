@@ -13,4 +13,6 @@ services:
             - '/media/USB/hdd1/shinobi/videos:/home/Shinobi/videos:rw'
             - '/etc/localtime:/etc/localtime:ro'
         image: 'registry.gitlab.com/shinobi-systems/shinobi:dev'
+        environment:
+            - TZ=Europe/Dublin
         restart: unless-stopped
