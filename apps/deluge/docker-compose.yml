@@ -11,23 +11,9 @@ services:
       - DELUGE_LOGLEVEL=error #optional
     volumes:
       - "${HOME}/.config/deluge/:/config"
-      - "/media/USB/:/mount/"
-    ports:
-      - 8112:8112
-      - 6881:6881
-      - 6881:6881/udp
-      - 58846:58846
+    # ports:
+    #   - 8112:8112
+    #   - 6881:6881
+    #   - 6881:6881/udp
+    #   - 58846:58846
     restart: unless-stopped
-    labels:
-      - "traefik.http.routers.deluge.rule=Host(`deluge.local`)"
-      - "traefik.http.routers.deluge.service=api@internal"
-      - "traefik.http.routers.deluge.entrypoints=web"
-      - "traefik.http.services.deluge.loadbalancer.server.port=8112"
-      - "traefik.http.routers.deluge.service=deluge"
-      - "traefik.enable=true"
-    networks: 
-      - "traefik-proxy"
-  
-networks:
-  "traefik-proxy":
-    external: true
