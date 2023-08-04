@@ -11,6 +11,7 @@ services:
       - DELUGE_LOGLEVEL=error #optional
     volumes:
       - "${HOME}/.config/deluge/:/config"
+      - "${DRIVE_MEDIA}:/mount/"
     ports:
       - 8112:8112
       - 6881:6881

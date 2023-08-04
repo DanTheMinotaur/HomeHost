@@ -10,7 +10,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ${HOME}/.config/sonarr/:/config
-      - "/media/USB/hdd1/:/mount/"
+      - "${DRIVE_MEDIA}:/mount/"
     ports:
       - 2600:8989
     restart: unless-stopped

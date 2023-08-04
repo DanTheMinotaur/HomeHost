@@ -10,7 +10,7 @@ services:
             - '$HOME/.config/shinobi/customAutoLoad:/home/Shinobi/libs/customAutoLoad:rw'
             - '$HOME/.config/shinobi/database:/var/lib/mysql:rw'
             - '$HOME/.config/shinobi/plugins:/home/Shinobi/plugins:rw'
-            - '/media/USB/hdd1/shinobi/videos:/home/Shinobi/videos:rw'
+            - '${DRIVE_STORAGE}/shinobi/videos:/home/Shinobi/videos:rw'
             - '/etc/localtime:/etc/localtime:ro'
         image: 'registry.gitlab.com/shinobi-systems/shinobi:dev'
         environment:

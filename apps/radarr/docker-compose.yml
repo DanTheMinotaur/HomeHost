@@ -9,7 +9,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ${HOME}/.config/radarr/:/config
-      - "/media/USB/hdd1/:/mount/"
+      - "${DRIVE_MEDIA}:/mount/"
     ports:
       - 2400:7878
     restart: unless-stopped

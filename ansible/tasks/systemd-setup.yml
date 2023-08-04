@@ -9,6 +9,15 @@
     service_name: "{{ script | basename | split('.') | first }}.service"
     timer_name: "{{ script | basename | split('.') | first }}.timer"
     
+- name: Setup dirs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - "{{ systemd_dir }}"
+    - "{{ scripts_dir }}"
+
 - name: "Copy {{ script }}"
   ansible.builtin.copy:
     src: "{{ script }}"
