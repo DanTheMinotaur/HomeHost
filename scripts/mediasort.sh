@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /etc/environment
+
 HDD_DIR="${DRIVE_MEDIA}"
 TV_TEMPLATE='{{ .Name }}/{{ .Name }} Season {{ printf "%02d" .Season }}/Episode {{ printf "%02d" .Episode }}{{ if ne .ExtraEpisode -1 }}-{{ printf "%02d" .ExtraEpisode }}{{end}}.{{ .Ext }}'
 
