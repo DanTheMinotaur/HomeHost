@@ -8,7 +8,7 @@
     - name: Create Traefik Network
       shell: docker network create traefik-proxy || true
     - include_tasks: ansible/tasks/docker-compose-deploy.yml
-      loop: "{{ lookup('dict', docker_apps) }}"
+      loop: "{{ lookup('dict', docker_apps, wantlist=True) }}"
       vars:
         app_name: "{{ item.key }}"
         compose_file: "{{ item.value.compose_file }}"
