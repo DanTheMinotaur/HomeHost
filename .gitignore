@@ -2,3 +2,4 @@ hosts
 *.env
 .vscode
 venv
+data/configs.yml
