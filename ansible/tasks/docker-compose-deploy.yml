@@ -37,5 +37,5 @@
   rescue:
     - name: "Start Docker Compose App: {{ app_name }} [via shell]"
       ansible.builtin.shell:
-        cmd: docker compose up --build -d
+        cmd: docker compose up --build --remove-orphans --force-recreate --detach
         chdir: "{{ docker_path }}"

@@ -10,8 +10,10 @@ cameras:
             - detect
             - record
       hwaccel_args: preset-vaapi
+      output_args:
+        record: preset-record-generic-audio-aac
       # hwaccel_args: -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_device intel
-      # hwaccel_args: preset-intel-qsv-h264
+      # hwaccel_args: preset-intel-qsv-h264 
       # hwaccel_args: -hwaccel qsv -qsv_device /dev/dri/renderD128
     detect:
       enabled: True # <---- disable detection until you have a working camera feed
