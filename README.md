@@ -29,7 +29,11 @@ pip install docker-compose
 ## Run Docker Install
 
 ```shell
+# Deploy all containers
 ansible-playbook docker.ansible.yml
+
+# Deploy single container
+ansible-playbook docker.ansible.yml --extra-vars 'single=Mosquitto'
 ```
 
 ## Run Dev setup
