@@ -8,6 +8,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri/card0:/dev/dri/card0
     volumes:
       - "${HOME}/.config/jellyfin/:/config"
       - "${DRIVE_MEDIA}:/mount/"
@@ -15,6 +18,5 @@ services:
       - 8096:8096
       - 8920:8920 #optional
       - 7359:7359/udp #optional
-      # - 1900:1900/udp #optional
+      - 1900:1900/udp #optional
     restart: unless-stopped
-
