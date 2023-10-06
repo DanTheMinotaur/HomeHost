@@ -1,0 +1,38 @@
+mqtt:
+  enabled: False
+
+cameras:
+  front_door:
+    ffmpeg:
+      inputs:
+        - path: {{ frigate.rtsp_path }} 
+          roles:
+            - detect
+            - record
+      hwaccel_args: preset-vaapi
+      # hwaccel_args: -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_device intel
+      # hwaccel_args: preset-intel-qsv-h264
+      # hwaccel_args: -hwaccel qsv -qsv_device /dev/dri/renderD128
+    detect:
+      enabled: True # <---- disable detection until you have a working camera feed
+      width: 1280 # <---- update for your camera's resolution
+      height: 720 # <---- update for your camera's resolution
+    record: # <----- Enable recording
+      enabled: True
+      retain:
+        days: 1
+        mode: all
+    snapshots: # <----- Enable snapshots
+      enabled: True
+
+# environment_vars:
+  # LIBVA_DRIVER_NAME: i965
+# environment_vars:
+#   LIBVA_DRIVER_NAME: radeonsi
+
+database:
+    path: "/config/frigate.db"
+
+logger:
+  # Optional: default log level (default: shown below)
+  # default: debug
