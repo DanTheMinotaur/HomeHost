@@ -25,14 +25,9 @@ cameras:
     snapshots: # <----- Enable snapshots
       enabled: True
 
-# environment_vars:
-  # LIBVA_DRIVER_NAME: i965
-# environment_vars:
-#   LIBVA_DRIVER_NAME: radeonsi
-
 database:
     path: "/config/frigate.db"
 
 logger:
   # Optional: default log level (default: shown below)
-  # default: debug
+  default: info 
