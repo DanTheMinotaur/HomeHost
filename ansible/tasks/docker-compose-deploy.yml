@@ -22,10 +22,17 @@
     loop_var: file
   when: files is defined and (files | length > 0)
   register: copied_files
-- name: "Start Docker Compose App: {{ app_name }}"
-  community.docker.docker_compose:
-    project_src: "{{ docker_path }}"
-    build: yes
-    restarted: yes
-    remove_orphans: yes
-  when: copied_compose_file.changed or copied_files.changed
+- name: Start Docker App
+  block:
+    - name: "Start Docker Compose App: {{ app_name }} [ansible plugin]"
+      community.docker.docker_compose:
+        project_src: "{{ docker_path }}"
+        build: yes
+        restarted: yes
+        remove_orphans: yes
+      when: copied_compose_file.changed or copied_files.changed
+  rescue:
+    - name: "Start Docker Compose App: {{ app_name }} [via shell]"
+      ansible.builtin.shell:
+        cmd: docker compose up --build
+        chdir: "{{ docker_path }}"
