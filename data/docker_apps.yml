@@ -13,6 +13,10 @@ docker_apps:
     ]
   Jellyfin:
     compose_file: apps/jellyfin/docker-compose.yml
+  Frigate:
+    compose_file: apps/frigate/docker-compose.yml
+    files:
+      - 'apps/frigate/config.yml'
   Radarr:
     compose_file: apps/radarr/docker-compose.yml
   Heimdall:
@@ -25,5 +29,9 @@ docker_apps:
     compose_file: apps/codeserver/docker-compose.yml
   HomeAssistant:
     compose_file: apps/homeassistant/docker-compose.yml
-  Shinobi:
-    compose_file: apps/shinobi/docker-compose.yml
+  # Shinobi: # now using Frigate
+  #   compose_file: apps/shinobi/docker-compose.yml
+  Mosquitto:
+    compose_file: utils/mosquitto/docker-compose.yml
+    files:
+      - 'utils/mosquitto/mosquitto.conf'
