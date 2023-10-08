@@ -2,6 +2,7 @@ version: '3.3'
 services:
   eclipse-mosquitto:
     container_name: mosquitto
+    restart: unless-stopped
     ports:
       - '1883:1883'
       - '9001:9001'

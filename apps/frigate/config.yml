@@ -1,20 +1,24 @@
 mqtt:
-  enabled: False
+  host: {{ frigate.mqtt_host }}
+
+go2rtc:
+  streams:
+    front_door:
+      - {{ frigate.rtsp_path }}
+      - "ffmpeg:front_door#audio=opus#audio=aac"
 
 cameras:
   front_door:
     ffmpeg:
       inputs:
-        - path: {{ frigate.rtsp_path }} 
+        - path: rtsp://127.0.0.1:8554/front_door
           roles:
             - detect
             - record
+          input_args: preset-rtsp-restream
       hwaccel_args: preset-vaapi
       output_args:
         record: preset-record-generic-audio-aac
-      # hwaccel_args: -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_device intel
-      # hwaccel_args: preset-intel-qsv-h264 
-      # hwaccel_args: -hwaccel qsv -qsv_device /dev/dri/renderD128
     detect:
       enabled: True # <---- disable detection until you have a working camera feed
       width: 1280 # <---- update for your camera's resolution
@@ -22,7 +26,7 @@ cameras:
     record: # <----- Enable recording
       enabled: True
       retain:
-        days: 1
+        days: 5
         mode: all
     snapshots: # <----- Enable snapshots
       enabled: True

@@ -16,7 +16,6 @@
         files: "{{ item.value.files | default([]) }}"
       when: single is undefined
     - include_tasks: ansible/tasks/docker-compose-deploy.yml
-      # loop: "{{ lookup('dict', docker_apps, wantlist=True) }}"
       vars:
         app_name: "{{ single }}"
         compose_file: "{{ docker_apps[single]['compose_file'] }}"
