@@ -35,3 +35,38 @@ docker_apps:
     compose_file: utils/mosquitto/docker-compose.yml
     files:
       - 'utils/mosquitto/mosquitto.conf'
+  HomerLocal:
+    compose_file: apps/homer/local/docker-compose.yml
+    files:
+      - 'apps/homer/manifest.json'
+      - 'apps/homer/local/config.yml'
+    dirs:
+      'apps/homer/icons/': 'icons/'
+  HomerRemote:
+    compose_file: apps/homer/remote/docker-compose.yml
+    files:
+      - 'apps/homer/manifest.json'
+      - 'apps/homer/remote/config.yml'
+    dirs:
+      'apps/homer/icons/': 'icons/'
+
+dashboard_config:
+  Home Automation:
+    icon: fa-home
+    apps:
+      HomeAssistant: 'Home automation dashboard'
+      Frigate: 'Webcam software and network video recorder(NVR)'
+  Media:
+    icon: fa-photo-video
+    apps:
+      Deluge: 'Torrenting Application'
+      Jellyfin: 'Media and DLNA Server'
+      Radarr: 'Movie collection manager'
+      Sonarr: 'TV show collection manager'
+  Utilities:
+    icon: fa-wave-square
+    apps:
+      Netdata: 'Server monitoring software with WebUI'
+      Traefik: 'Reverse proxy'
+      Pihole: 'Add blocking and DNS'
+      VSCodeServer: 'Web version of VSCode'

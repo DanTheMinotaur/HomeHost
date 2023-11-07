@@ -25,6 +25,15 @@
     loop_var: file
   when: files is defined and (files | length > 0)
   register: copied_files
+- name: Copy required directories
+  copy:
+    src: "{{ dir.key }}"
+    dest: "{{ docker_path }}/{{ dir.value }}"
+  with_dict: "{{ dirs }}"
+  loop_control:
+    loop_var: dir
+  when: dirs is defined and (dirs | length > 0)
+  register: copied_dirs
 - name: Start Docker App
   block:
     - name: "Start Docker Compose App: {{ app_name }} [ansible plugin]"
@@ -33,7 +42,7 @@
         build: yes
         restarted: yes
         remove_orphans: yes
-      when: copied_compose_file.changed or copied_files.changed
+      when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed
   rescue:
     - name: "Start Docker Compose App: {{ app_name }} [via shell]"
       ansible.builtin.shell:
