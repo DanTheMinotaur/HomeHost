@@ -25,7 +25,7 @@ docker_apps:
     compose_file: apps/sonarr/docker-compose.yml
   Netdata:
     compose_file: apps/netdata/docker-compose.yml
-  VSCodeServer:
+  VSCode:
     compose_file: apps/codeserver/docker-compose.yml
   HomeAssistant:
     compose_file: apps/homeassistant/docker-compose.yml
@@ -69,4 +69,4 @@ dashboard_config:
       Netdata: 'Server monitoring software with WebUI'
       Traefik: 'Reverse proxy'
       Pihole: 'Add blocking and DNS'
-      VSCodeServer: 'Web version of VSCode'
+      VSCode: 'Web version of VSCode'

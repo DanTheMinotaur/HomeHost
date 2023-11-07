@@ -6,8 +6,8 @@ services:
             - '2100:8080'
         volumes:
             - '$HOME/.config:/home/coder/.config'
-            - '$HOME/devel:/home/devel'
-            - '$HOME/.gitconfig:/etc/gitconfig'
+            - '$HOME/:/home/'
+            - '$HOME/.gitconfig:/etc/.gitconfig'
 #        user: '$(id -u):$(id -g)'
         environment:
             - DOCKER_USER=$USER
