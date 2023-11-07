@@ -5,7 +5,7 @@
     - include_tasks: ansible/tasks/systemd-setup.yml
       vars:
         script: scripts/mediasort.sh
-    - include_tasks: ansible/tasks/systemd-setup.yml
-      vars:
-        script: scripts/reboot.sh
-        timer: "*-*-* 05:00:00"
+    # - include_tasks: ansible/tasks/systemd-setup.yml
+    #   vars:
+    #     script: scripts/reboot.sh
+    #     timer: "*-*-* 05:00:00"
