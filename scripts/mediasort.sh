@@ -8,8 +8,8 @@ TV_TEMPLATE='{{ .Name }}/{{ .Name }} Season {{ printf "%02d" .Season }}/Episode 
 # Add to not make any changes to files
 # --dry-run \
 media-sort \
---tv-dir "${HDD_DIR}/TV" \
---movie-dir "${HDD_DIR}/Movies" \
+--tv-dir "${HDD_DIR}/Media/TV" \
+--movie-dir "${HDD_DIR}/Media/Movies" \
 --recursive \
 --action link \
 --tv-template "${TV_TEMPLATE}" \
