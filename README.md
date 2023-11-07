@@ -26,6 +26,16 @@ pip install docker
 pip install docker-compose
 ```
 
+## deploy
+
+```shell
+# deploy all containers and scripts
+./deploy.sh all
+
+# deploy single container see docker_apps.yml
+./deploy.sh Mosquitto
+```
+
 ## Run Docker Install
 
 ```shell
