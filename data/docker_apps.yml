@@ -49,6 +49,8 @@ docker_apps:
       - 'apps/homer/remote/config.yml'
     dirs:
       'apps/homer/icons/': 'icons/'
+  Mariadb:
+    compose_file: utils/mariadb/docker-compose.yml
 
 dashboard_config:
   Home Automation:
