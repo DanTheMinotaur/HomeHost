@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+    wallabag:
+        container_name: wallabag
+        volumes:
+            - '$HOME/.config/wallabag/images:/var/www/wallabag/web/assets/images'
+        ports:
+            - '4234:80'
+        restart: unless-stopped
+        environment:
+            - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+            - SYMFONY__ENV__DATABASE_HOST={{ global.host }}
+            - SYMFONY__ENV__DATABASE_PORT=3306
+            - SYMFONY__ENV__DATABASE_NAME=wallabag
+            - SYMFONY__ENV__DATABASE_USER={{ wallabag.db_user }}
+            - SYMFONY__ENV__DATABASE_PASSWORD={{ wallabag.db_pw }}
+            - SYMFONY__ENV__DATABASE_CHARSET=utf8mb4
+            - 'SYMFONY__ENV__DOMAIN_NAME=http://{{ global.host }}:4234'
+        image: wallabag/wallabag
