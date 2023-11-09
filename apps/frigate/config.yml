@@ -4,8 +4,11 @@ mqtt:
 go2rtc:
   streams:
     front_door:
-      - {{ frigate.rtsp_path }}
+      - {{ frigate.front_door }}
       - "ffmpeg:front_door#audio=opus#audio=aac"
+    3d_printer:
+      - {{ frigate.3d_printer }}
+      - "ffmpeg:3d_printer#video=h264"
 
 cameras:
   front_door:
@@ -27,6 +30,21 @@ cameras:
       enabled: True
       retain:
         days: 21
+        mode: all
+    snapshots: # <----- Enable snapshots
+      enabled: True
+      
+  3d_printer:
+    ffmpeg:
+        inputs:
+          - path: rtsp://127.0.0.1:8554/3d_printer
+            roles:
+              - record
+        hwaccel_args: preset-vaapi  
+    record: # <----- Enable recording
+      enabled: True
+      retain:
+        days: 365
         mode: all
     snapshots: # <----- Enable snapshots
       enabled: True
