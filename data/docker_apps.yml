@@ -53,6 +53,8 @@ docker_apps:
     compose_file: utils/mariadb/docker-compose.yml
   Wallabag:
     compose_file: apps/wallabag/docker-compose.yml
+  Portainer:
+    compose_file: utils/portainer/docker-compose.yml
 
 dashboard_config:
   Home Automation:
@@ -75,3 +77,4 @@ dashboard_config:
       Traefik: 'Reverse proxy'
       Pihole: 'Add blocking and DNS'
       VSCode: 'Web version of VSCode'
+      Portainer: 'Docker managment'
