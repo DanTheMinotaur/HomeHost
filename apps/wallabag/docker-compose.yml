@@ -3,7 +3,7 @@ services:
     wallabag:
         container_name: wallabag
         volumes:
-            - '$HOME/.config/wallabag/images:/var/www/wallabag/web/assets/images'
+            - '$DOCKER_VOLUMES/wallabag/images:/var/www/wallabag/web/assets/images'
         ports:
             - '4234:80'
         restart: unless-stopped

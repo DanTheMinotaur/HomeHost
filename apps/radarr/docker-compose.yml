@@ -8,7 +8,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - ${HOME}/.config/radarr/:/config
+      - ${DOCKER_VOLUMES}/radarr/:/config
       - "${DRIVE_MEDIA}:/mount/"
     ports:
       - 2400:7878

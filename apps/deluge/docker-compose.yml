@@ -10,7 +10,7 @@ services:
       - TZ=Europe/London
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - "${HOME}/.config/deluge/:/config"
+      - "${DOCKER_VOLUMES}/deluge/:/config"
       - "${DRIVE_MEDIA}:/mount/"
     ports:
       - 8112:8112

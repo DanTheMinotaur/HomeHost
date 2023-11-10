@@ -7,10 +7,10 @@ services:
     image: pihole/pihole:latest
     # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
     ports:
+      - "2300:2300/tcp"
       - "53:53/tcp"
       - "53:53/udp"
       # - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
-      - "2300:2300/tcp"
     environment:
       TZ: 'Europe/Dublin'
       PIHOLE_DNS_: 9.9.9.9;1.1.1.1
@@ -23,8 +23,8 @@ services:
       - pihole.env
     # Volumes store your data between container upgrades
     volumes:
-      - "${HOME}/.pihole/etc-pihole:/etc/pihole"
-      - "${HOME}/.pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
+      - "${DOCKER_VOLUMES}/pihole/etc-pihole:/etc/pihole"
+      - "${DOCKER_VOLUMES}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
       - ./custom.list:/etc/pihole/custom.list
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:

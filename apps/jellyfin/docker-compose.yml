@@ -12,7 +12,7 @@ services:
       - /dev/dri/renderD128:/dev/dri/renderD128
       - /dev/dri/card0:/dev/dri/card0
     volumes:
-      - "${HOME}/.config/jellyfin/:/config"
+      - "${DOCKER_VOLUMES}/jellyfin/:/config"
       - "${DRIVE_MEDIA}:/mount/"
     ports:
       - 8096:8096

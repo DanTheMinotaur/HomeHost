@@ -9,7 +9,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - ${HOME}/.config/sonarr/:/config
+      - ${DOCKER_VOLUMES}/sonarr/:/config
       - "${DRIVE_MEDIA}:/mount/"
     ports:
       - 2600:8989

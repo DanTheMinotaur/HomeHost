@@ -4,10 +4,10 @@ mqtt:
 go2rtc:
   streams:
     front_door:
-      - {{ frigate.front_door }}
+      - "{{ frigate.front_door }}"
       - "ffmpeg:front_door#audio=opus#audio=aac"
     3d_printer:
-      - {{ frigate.3d_printer }}
+      - "{{ frigate.printer }}"
       - "ffmpeg:3d_printer#video=h264"
 
 cameras:

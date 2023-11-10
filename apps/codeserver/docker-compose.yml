@@ -5,7 +5,7 @@ services:
         ports:
             - '2100:8080'
         volumes:
-            - '$HOME/.config:/home/coder/.config'
+            - '$DOCKER_VOLUMES:/home/coder/.config'
             - '$HOME/:/home/'
             - '$HOME/.gitconfig:/etc/.gitconfig'
 #        user: '$(id -u):$(id -g)'
