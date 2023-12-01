@@ -36,6 +36,7 @@ def repo_create(repo_path, repo_entry, files):
 def rclone_copy(repo_path):
     remote_name = path.basename(repo_path)
     remote_loc = environ['BORG_RCLONE_GDRIVE']
+    print(f'Uploading Backup to: {remote_loc}')
     subprocess.run(f'rclone copy {repo_path} {path.join(remote_loc, remote_name)}', shell=True)
 
 

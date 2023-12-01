@@ -1,11 +1,14 @@
 ---
 - name: 
   hosts: unicorn
+  vars_files:
+    - data/configs.yml
   tasks:
     - include_tasks: ansible/tasks/systemd-setup.yml
       vars:
         script: scripts/mediasort.sh
-    # - include_tasks: ansible/tasks/systemd-setup.yml
-    #   vars:
-    #     script: scripts/reboot.sh
-    #     timer: "*-*-* 05:00:00"
+    - include_tasks: ansible/tasks/systemd-setup.yml
+      vars:
+        script: scripts/backup.py
+        timer: "*-*-* 01:00:00"
+        args: "{{ etcenv.DOCKER_VOLUMES }}"

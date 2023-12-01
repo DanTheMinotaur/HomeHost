@@ -6,5 +6,5 @@ Wants={{ wanted_timer }}
 
 [Service]
 Type=simple
-ExecStart="{{ script_path }}"
-
+ExecStart="{{ script_path }} {{ arguments }}"
+EnvironmentFile=/etc/environment
