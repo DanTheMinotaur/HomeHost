@@ -2,21 +2,11 @@
 # Roles to setup basic systemd scripts with timers
 - name: Set Variables
   set_fact:
-    systemd_dir: "{{ansible_env.HOME}}/systemd"
-    scripts_dir: "{{ansible_env.HOME}}/scripts"
-    systemd_path: "/etc/systemd/system/"
+    scripts_dir: "/usr/local/bin"
+    systemd_path: "/etc/systemd/system"
     script_name: "{{ script | basename | split('.') | first }}"
     service_name: "{{ script | basename | split('.') | first }}.service"
     timer_name: "{{ script | basename | split('.') | first }}.timer"
-    
-- name: Setup dirs
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    mode: '0755'
-  loop:
-    - "{{ systemd_dir }}"
-    - "{{ scripts_dir }}"
 
 - name: "Copy {{ script }}"
   ansible.builtin.copy:
@@ -24,26 +14,19 @@
     dest: "{{ scripts_dir }}/"
     mode: o+rx
   when: script is defined
+  become: true
 
 - name: "Copy {{ service_name }}"
   ansible.builtin.template:
     src: "scripts/systemd/script.service.j2"
-    dest: "{{ systemd_dir }}/{{ service_name }}"
+    dest: "{{ systemd_path }}/{{ service_name }}"
   vars:
     script_path: "{{ scripts_dir }}/{{ script | basename }}"
     wanted_timer: "{{ timer_name if timer is defined else '' }}"
+    arguments: "{{ args if args is defined else '' }}"
   register: copied_service
   when: script is defined
-
-- name: "Link {{ service_name }} to systemd"
-  ansible.builtin.file:
-    src: "{{ copied_service.dest }}"
-    dest: "/etc/systemd/system/{{ service_name }}"
-    state: link
-    owner: root
-    group: root
   become: true
-  when: copied_service is defined
 
 - name: "Setup {{ service_name }} in systemd"  
   ansible.builtin.systemd:
@@ -57,22 +40,13 @@
 - name: "Copy {{ timer_name }}"
   ansible.builtin.template:
     src: "scripts/systemd/timer.j2"
-    dest: "{{ systemd_dir }}/{{ script_name }}.timer"
+    dest: "{{ systemd_path }}/{{ script_name }}.timer"
   vars:
     service_timer: "{{ timer }}"
     service: "{{ service_name }}"
   register: copied_timer
   when: timer is defined
-
-- name: "Link {{ timer_name }} to systemd"
-  ansible.builtin.file:
-    src: "{{ copied_timer.dest }}"
-    dest: "/etc/systemd/system/{{ timer_name }}"
-    state: link
-    owner: root
-    group: root
   become: true
-  when: timer is defined
 
 - name: "Enable {{ timer_name }}"
   ansible.builtin.systemd:
