@@ -2,7 +2,7 @@
 import subprocess
 from datetime import date
 import sys
-from os import path, environ
+from os import path, environ, remove
 
 REPO_HOME = "/backups/"
 
@@ -19,10 +19,13 @@ Requires BORG_RCLONE_GDRIVE, BORG_PASSPHRASE env variables to be set.
 """
 
 
-def borg(cmd):
-    cmd = f'borg {cmd}'
+def run(cmd, **kwargs):
     print(cmd)
-    subprocess.run(cmd, shell=True)
+    subprocess.run(cmd, shell=True, **kwargs)
+
+
+def borg(cmd):
+    run(f'borg {cmd}')
 
 
 def repo_init(repo_path):
@@ -34,16 +37,16 @@ def repo_create(repo_path, repo_entry, files):
 
 
 def rclone(cmd):
-    cmd = f"rclone --config {environ['RCLONE_CONFIG']} {cmd}"
-    print(cmd)
-    subprocess.run(cmd, shell=True)
+    run(f"rclone --config {environ['RCLONE_CONFIG']} {cmd}")
+
+
+def zip(path_to_zip, dest_zip):
+    run(f'zip -r {dest_zip} .', cwd=path_to_zip)
 
 
 def rclone_copy(repo_path):
-    remote_name = path.basename(repo_path)
     remote_loc = environ['BORG_RCLONE_GDRIVE']
-    print(f'Uploading Backup to: {remote_loc}')
-    rclone(f'copy {repo_path} {path.join(remote_loc, remote_name)}')
+    rclone(f'copy {repo_path} {remote_loc}')
 
 
 def main():
@@ -62,7 +65,14 @@ def main():
 
     repo_create(repo_path, repo_entry, backup)
 
-    rclone_copy(repo_path)
+    zip_path = f'/tmp/{path.basename(repo_path)}.zip'
+
+    zip(repo_path, zip_path)
+
+    rclone_copy(zip_path)
+
+    if path.exists(zip_path):
+        remove(zip_path)
 
 
 if __name__ == "__main__":
