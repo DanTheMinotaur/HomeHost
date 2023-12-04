@@ -40,8 +40,8 @@ def rclone(cmd):
     run(f"rclone --config {environ['RCLONE_CONFIG']} {cmd}")
 
 
-def zip(path_to_zip, dest_zip):
-    run(f'zip -r {dest_zip} .', cwd=path_to_zip)
+def tar(path_to_zip, dest_archive):
+    run(f'tar -czvf {dest_archive} .', cwd=path_to_zip)
 
 
 def rclone_copy(repo_path):
@@ -65,14 +65,14 @@ def main():
 
     repo_create(repo_path, repo_entry, backup)
 
-    zip_path = f'/tmp/{path.basename(repo_path)}.zip'
+    archive_path = f'/tmp/{path.basename(repo_path)}.tar.gz'
 
-    zip(repo_path, zip_path)
+    tar(repo_path, archive_path)
 
-    rclone_copy(zip_path)
+    rclone_copy(archive_path)
 
-    if path.exists(zip_path):
-        remove(zip_path)
+    if path.exists(archive_path):
+        remove(archive_path)
 
 
 if __name__ == "__main__":
