@@ -55,6 +55,8 @@ docker_apps:
     compose_file: apps/wallabag/docker-compose.yml
   Portainer:
     compose_file: utils/portainer/docker-compose.yml
+  Prowlarr:
+    compose_file: apps/prowlarr/docker-compose.yml
 
 dashboard_config:
   Home Automation:
