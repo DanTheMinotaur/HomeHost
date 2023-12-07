@@ -8,6 +8,6 @@ services:
       - '9001:9001'
     volumes:
       - './mosquitto.conf:/mosquitto/config/mosquitto.conf'
-      - '$HOME/.config/mosquitto/data:/mosquitto/data'
-      - '$HOME/.config/mosquitto/logs:/mosquitto/log'
+      - '$DOCKER_VOLUMES/mosquitto/data:/mosquitto/data'
+      - '$DOCKER_VOLUMES/mosquitto/logs:/mosquitto/log'
     image: eclipse-mosquitto

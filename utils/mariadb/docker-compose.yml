@@ -11,4 +11,4 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: "{{ mariadb.root_pw }}"
     volumes:
-    - '$HOME/.config/mariadb:/var/lib/mysql:Z'
+    - '$DOCKER_VOLUMES/mariadb:/var/lib/mysql:Z'
