@@ -3,3 +3,4 @@ hosts
 .vscode
 venv
 data/configs.yml
+.idea/
