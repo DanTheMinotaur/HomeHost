@@ -11,4 +11,4 @@
       vars:
         script: scripts/backup.py
         timer: "*-*-* 01:00:00"
-        args: "{{ etcenv.DOCKER_VOLUMES }}"
+        args: "{{ etcenv.DOCKER_VOLUMES }} homeassistant.log* " 

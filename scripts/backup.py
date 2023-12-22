@@ -32,8 +32,19 @@ def repo_init(repo_path):
     borg(f'init --encryption=repokey {repo_path}')
 
 
-def repo_create(repo_path, repo_entry, files):
-    borg(f'create {repo_path}::{repo_entry} {files}')
+def repo_create(repo_path, repo_entry, files, excluded: list[str] = []):
+    _excluded = ' --exclude '.join(f'"{e}"' for e in excluded) if len(excluded) > 0 else ''
+        
+    borg(f'create {repo_path}::{repo_entry} {files} {_excluded}')
+
+
+def repo_prune(repo_path, params = {}):
+    params = ' '.join([f'--{a} {v}' for a, v in params.items()])
+    borg(f'prune {params} {repo_path}')
+
+
+def repo_compact(repo_path):
+    borg(f'compact {repo_path}')
 
 
 def rclone(cmd):
@@ -51,6 +62,8 @@ def rclone_copy(repo_path):
 
 def main():
     backup = list(sys.argv)[1]
+    excluded = list(sys.argv)[2:]
+    
     if not len(backup):
         print('No backup specified')
         exit()
@@ -63,7 +76,16 @@ def main():
 
     repo_entry = date.today().strftime("%Y%m%d")
 
-    repo_create(repo_path, repo_entry, backup)
+    repo_create(repo_path, repo_entry, backup, excluded)
+
+    repo_prune(repo_path, {
+        'keep-daily': 3,
+        'keep-weekly': 4,
+        'keep-monthly': 6,
+        'keep-last': 1
+    })
+
+    repo_compact(repo_path)
 
     archive_path = f'/tmp/{path.basename(repo_path)}.tar.gz'
 
