@@ -16,4 +16,4 @@ media-sort \
 --file-limit 20000 \
 --hard-link \
 --watch \
-"${HDD_DIR}/Downloads"
+"${HDD_DIR}/Media/Downloads"
