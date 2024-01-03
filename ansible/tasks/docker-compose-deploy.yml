@@ -2,9 +2,6 @@
 - name: "Set variables"
   set_fact:
     docker_path: "{{ ansible_env.HOME }}/docker/{{ app_name }}/"
-- name: "Load configs.yml"
-  ansible.builtin.include_vars:
-    file: data/configs.yml
 - name: "Ensures {{ docker_path }} dir exists"
   file: 
     path: "{{ docker_path }}"
