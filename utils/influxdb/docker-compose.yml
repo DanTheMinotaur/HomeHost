@@ -1,0 +1,10 @@
+version: "3"
+services:
+  influxdb:
+    container_name: InfluxDB
+    ports:
+      - 8086:8086
+    volumes:
+      - $DOCKER_VOLUMES/influxdb:/var/lib/influxdb2
+    image: influxdb:2.7
+    
