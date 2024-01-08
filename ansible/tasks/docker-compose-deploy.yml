@@ -31,6 +31,15 @@
     loop_var: dir
   when: dirs is defined and (dirs | length > 0)
   register: copied_dirs
+- name: Copy binaries
+  template: 
+    src: "{{ file }}" 
+    dest: "{{ docker_path }}"
+  with_items: "{{ bins }}"
+  loop_control:
+    loop_var: file
+  when: bins is defined and (bins | length > 0)
+  register: copied_bins
 - name: Start Docker App
   block:
     - name: "Start Docker Compose App: {{ app_name }} [ansible plugin]"
@@ -39,7 +48,7 @@
         build: yes
         restarted: yes
         remove_orphans: yes
-      when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed
+      when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed or copied_bins.changed
   rescue:
     - name: "Start Docker Compose App: {{ app_name }} [via shell]"
       ansible.builtin.shell:
