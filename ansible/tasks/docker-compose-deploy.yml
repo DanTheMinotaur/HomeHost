@@ -32,7 +32,7 @@
   when: dirs is defined and (dirs | length > 0)
   register: copied_dirs
 - name: Copy binaries
-  template: 
+  copy: 
     src: "{{ file }}" 
     dest: "{{ docker_path }}"
   with_items: "{{ bins }}"
