@@ -59,6 +59,8 @@ docker_apps:
     compose_file: apps/prowlarr/docker-compose.yml
   InfluxDB:
     compose_file: utils/influxdb/docker-compose.yml
+  Speedtest:
+    compose_file: apps/speedtest/docker-compose.yml
 
 dashboard_config:
   Home Automation:
@@ -83,3 +85,4 @@ dashboard_config:
       Pihole: 'Add blocking and DNS'
       VSCode: 'Web version of VSCode'
       Portainer: 'Docker managment'
+      Speedtest: 'Network Speed test'
