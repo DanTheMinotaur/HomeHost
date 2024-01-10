@@ -7,4 +7,5 @@ services:
     volumes:
       - $DOCKER_VOLUMES/influxdb:/var/lib/influxdb2
     image: influxdb:2.7
+    restart: unless-stopped
     
