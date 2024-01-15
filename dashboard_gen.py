@@ -10,7 +10,7 @@ DOCKER_APPS = 'data/docker_apps.yml'
 HOMER_DIR = Path('apps/homer')
 BASE_CONFIG = HOMER_DIR.joinpath('config_base.yml')
 ICONS_DIR = HOMER_DIR.joinpath('icons/')
-ICONS_ZIP = zipfile.ZipFile(HOMER_DIR.joinpath('icons.zip'))
+ICONS_ZIP = HOMER_DIR.joinpath('icons.zip')
 
 
 def load_yaml_file(path: str or Path) -> dict:
@@ -25,7 +25,7 @@ def get_docker_port(compose_file: str or Path) -> int:
 
 
 def find_icons(apps: list) -> dict[str, str]:
-    icons_zip = [i.replace('.svg', '') for i in ICONS_ZIP.namelist()]
+    icons_zip = [i.replace('.svg', '') for i in zipfile.ZipFile(ICONS_ZIP).namelist()]
     found_icons = {}
     for app in apps:
         try:
