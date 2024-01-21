@@ -38,7 +38,7 @@ def find_icons(apps: list) -> dict[str, str]:
 def extract_icons(icons_to_extract: list, destination: Path) -> None:
     for icon in icons_to_extract:
         if not destination.joinpath(icon).is_file():
-            ICONS_ZIP.extract(icon, path=destination)
+            zipfile.ZipFile(ICONS_ZIP).extract(icon, path=destination)
 
 
 def generate_dashboard_services(base_url: str):
