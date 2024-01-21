@@ -201,6 +201,7 @@ services:
       - LOGSTASH_HOSTS=http://logstash01:9600
     command:
       - --strict.perms=false
+    restart: unless-stopped
 
   logstash01:
     depends_on:
@@ -222,5 +223,6 @@ services:
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTIC_HOSTS=https://es01:9200
+    restart: unless-stopped
     # command:
     #   - strict.perms=false

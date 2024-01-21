@@ -8,6 +8,14 @@ filebeat.autodiscover:
   providers:
     - type: docker
       hints.enabled: true
+      templates:
+        - config:
+            - type: container
+              paths:
+                - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
+              fields:
+                event.dataset: "{{ global.hostname }}.docker.${data.docker.container.name}"
+              fields_under_root: true
 
 processors:
 - add_docker_metadata: ~
