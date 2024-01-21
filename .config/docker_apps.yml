@@ -65,6 +65,9 @@ docker_apps:
     compose_file: utils/elastic/docker-compose.yml
     files:
       - 'utils/elastic/.env'
+      - 'utils/elastic/metricbeat.yml'
+      - 'utils/elastic/filebeat.yml'
+      - 'utils/elastic/logstash.conf'
 
 dashboard_config:
   Home Automation:
