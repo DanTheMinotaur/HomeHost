@@ -61,6 +61,10 @@ docker_apps:
     compose_file: utils/influxdb/docker-compose.yml
   Speedtest:
     compose_file: apps/speedtest/docker-compose.yml
+  Elastic:
+    compose_file: utils/elastic/docker-compose.yml
+    files:
+      - 'utils/elastic/.env'
 
 dashboard_config:
   Home Automation:
@@ -87,3 +91,4 @@ dashboard_config:
       VSCode: 'Web version of VSCode'
       Portainer: 'Docker managment'
       Speedtest: 'Network Speed test'
+      Elastic: 'Kibana - Elastic UI'
