@@ -5,8 +5,8 @@ import zipfile
 from pathlib import Path
 from difflib import get_close_matches
 
-GENERAL_CONFIG = 'data/configs.yml'
-DOCKER_APPS = 'data/docker_apps.yml'
+GENERAL_CONFIG = '.config/configs.yml'
+DOCKER_APPS = '.config/docker_apps.yml'
 HOMER_DIR = Path('apps/homer')
 BASE_CONFIG = HOMER_DIR.joinpath('config_base.yml')
 ICONS_DIR = HOMER_DIR.joinpath('icons/')

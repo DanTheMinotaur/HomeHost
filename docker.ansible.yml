@@ -3,8 +3,8 @@
   gather_facts: true
   hosts: unicorn
   vars_files:
-    - data/docker_apps.yml
-    - data/configs.yml
+    - .config/docker_apps.yml
+    - .config/configs.yml
   tasks:
     - name: Create Traefik Network
       shell: docker network create traefik-proxy || true

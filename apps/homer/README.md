@@ -6,7 +6,7 @@ Dashboard is generated from [dashboard_gen.py](../../dashboard_gen.py) and gener
 any matching icons it finds. 
 
 ## Config
-The configuration is controlled from `dashboard_config` in [docker_apps.yml](../../data/docker_apps.yml). A docker container
+The configuration is controlled from `dashboard_config` in [docker_apps.yml](../../.config/docker_apps.yml). A docker container
 to be added `docker_apps` for `dashboard_gen.py` to figure out where to extract the port number for routing.
 
 New sections can be added to homer by adding a new key to `dashboard_config` and the docker container needs to be added to

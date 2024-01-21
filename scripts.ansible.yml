@@ -2,7 +2,7 @@
 - name: 
   hosts: unicorn
   vars_files:
-    - data/configs.yml
+    - .config/configs.yml
   tasks:
     - include_tasks: ansible/tasks/systemd-setup.yml
       vars:
