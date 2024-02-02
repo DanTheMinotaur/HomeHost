@@ -68,6 +68,8 @@ docker_apps:
       - 'utils/elastic/metricbeat.yml'
       - 'utils/elastic/filebeat.yml'
       - 'utils/elastic/logstash.conf'
+  Nocodb:
+    compose_file: apps/nocodb/compose.yml
 
 dashboard_config:
   Home Automation:
@@ -85,6 +87,7 @@ dashboard_config:
       Wallabag: 'App for saving webpages'
       Prowlarr: 'Indexer manager/proxy'
       InfluxDB: 'Time series database '
+      Nocodb: 'Smart Spreadsheet app'
   Utilities:
     icon: fa-wave-square
     apps:

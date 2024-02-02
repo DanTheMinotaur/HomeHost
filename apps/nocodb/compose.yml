@@ -1,0 +1,11 @@
+version: "2.1"
+services: 
+  nocodb: 
+    environment: 
+      NC_DB: "mysql2://{{ global.host }}?u={{ nocodb.db_user }}&p={{ nocodb.db_pw }}&d={{ nocodb.db_name }}"
+    image: "nocodb/nocodb:latest"
+    ports: 
+      - "8081:8080"
+    restart: unless-stopped
+    volumes: 
+      - "${DOCKER_VOLUMES}/nocodb:/usr/app/data"
