@@ -74,11 +74,13 @@ docker_apps:
       - 'apps/nocodb/.env'
 
 dashboard_config:
-  Home Automation:
-    icon: fa-home
+  Apps:
+    icon: fa-rocket
     apps:
-      HomeAssistant: 'Home automation dashboard'
-      Frigate: 'Webcam software and network video recorder(NVR)'
+      Nocodb: 'Smart Spreadsheet app'
+      Wallabag: 'App for saving webpages'
+      VSCode: 'Web version of VSCode'
+      Portainer: 'Docker managment'
   Media:
     icon: fa-photo-video
     apps:
@@ -86,17 +88,18 @@ dashboard_config:
       Jellyfin: 'Media and DLNA Server'
       Radarr: 'Movie collection manager'
       Sonarr: 'TV show collection manager'
-      Wallabag: 'App for saving webpages'
       Prowlarr: 'Indexer manager/proxy'
-      InfluxDB: 'Time series database '
-      Nocodb: 'Smart Spreadsheet app'
+  Home Automation:
+    icon: fa-home
+    apps:
+      HomeAssistant: 'Home automation dashboard'
+      Frigate: 'Webcam software and network video recorder(NVR)'
   Utilities:
     icon: fa-wave-square
     apps:
       Netdata: 'Server monitoring software with WebUI'
       Traefik: 'Reverse proxy'
       Pihole: 'Add blocking and DNS'
-      VSCode: 'Web version of VSCode'
-      Portainer: 'Docker managment'
       Speedtest: 'Network Speed test'
       Elastic: 'Kibana - Elastic UI'
+      InfluxDB: 'Time series database'
