@@ -72,6 +72,10 @@ docker_apps:
     compose_file: apps/nocodb/compose.yml
     files:
       - 'apps/nocodb/.env'
+  Redis:
+    compose_file: utils/redis/compose.yml
+    files:
+      - 'utils/redis/redis.conf'
 
 dashboard_config:
   Apps:
