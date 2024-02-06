@@ -2,7 +2,8 @@
 docker_apps:
   Traefik:
     compose_file: utils/traefik/docker-compose.yml
-    files: ['utils/traefik/traefik.toml']
+    files: 
+      - 'utils/traefik/traefik.toml'
   Deluge:
     compose_file: apps/deluge/docker-compose.yml
   Pihole:

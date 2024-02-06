@@ -2,12 +2,19 @@
   [entryPoints.web]
     address = ":80"
 
+  [entryPoints.websecure]
+    address = ":443"
+
+[certificatesResolvers.tsresolver.tailscale]
+
 [api]
   dashboard = true
-  insecure = true
-  debug = true
+  debug = false
 
 [providers]
   [providers.docker]
     watch = true
     exposedByDefault = false
+
+[log]
+  level = "DEBUG"
