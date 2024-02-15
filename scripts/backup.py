@@ -4,8 +4,6 @@ from datetime import date
 import sys
 from os import path, environ, remove
 
-REPO_HOME = "/backups/"
-
 """
 Simple script to backup chosen directory using borg https://www.borgbackup.org/ and sync to Google Drive using rclone.
 The script will name the backup `basename(path).repo`, it's only made to make a daily backup using YYYYMMDD as the 
@@ -13,7 +11,7 @@ repo key.
 
 Usage:
 
-./backup.py /home/daniel/Devel
+./backup.py /backups/ /home/daniel/Devel
 
 Requires BORG_RCLONE_GDRIVE, BORG_PASSPHRASE env variables to be set. 
 """
@@ -62,13 +60,14 @@ def rclone_copy(repo_path):
 
 def main():
     backup = list(sys.argv)[1]
-    excluded = list(sys.argv)[2:]
+    repo_home = list(sys.argv)[2]
+    excluded = list(sys.argv)[3:]
     
     if not len(backup):
         print('No backup specified')
         exit()
 
-    repo_path = path.join(REPO_HOME, path.basename(backup).strip('.') + '.repo')
+    repo_path = path.join(repo_home, path.basename(backup).strip('.') + '.repo')
 
     if not path.isdir(repo_path):
         print(f'Creating repo {repo_path}')
