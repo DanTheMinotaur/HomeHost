@@ -9,6 +9,12 @@
         script: scripts/mediasort.sh
     - include_tasks: ansible/tasks/systemd-setup.yml
       vars:
-        script: scripts/backup.py
+        script: scripts/backup/borg_backup.sh
         timer: "*-*-* 01:00:00"
-        args: "{{ etcenv.DOCKER_VOLUMES }} {{ etcenv.BACKUP_STORAGE }} homeassistant.log* " 
+        args: "{{ etcenv.DOCKER_VOLUMES }}" 
+    - include_tasks: ansible/tasks/systemd-setup.yml
+      vars:
+        script: scripts/backup/remote_backup.sh
+        timer: "*-*-* 02:00:00"
+        args: "{{ backups.machina.user }} {{ backups.machina.ip }} {{ backups.machina.dir }}"
+ 
