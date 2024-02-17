@@ -17,4 +17,7 @@
         script: scripts/backup/remote_backup.sh
         timer: "*-*-* 02:00:00"
         args: "{{ backups.machina.user }} {{ backups.machina.ip }} {{ backups.machina.dir }}"
- 
+    - include_tasks: ansible/tasks/systemd-setup.yml
+      vars:
+        script: scripts/backup/upload_borg_backups.sh
+        timer: "*-*-* 03:00:00"
