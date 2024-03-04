@@ -77,6 +77,10 @@ docker_apps:
     compose_file: utils/redis/compose.yml
     files:
       - 'utils/redis/redis.conf'
+  Ghostfolio:
+    compose_file: apps/ghostfolio/docker-compose.yml
+    files:
+      - 'apps/ghostfolio/.env'
 
 dashboard_config:
   Apps:
@@ -86,6 +90,7 @@ dashboard_config:
       Wallabag: 'App for saving webpages'
       VSCode: 'Web version of VSCode'
       Portainer: 'Docker managment'
+      Ghostfolio: 'Asset managment'
   Media:
     icon: fa-photo-video
     apps:
