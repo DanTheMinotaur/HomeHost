@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  otrecorder:
+    image: owntracks/recorder
+    ports:
+      - 8083:8083
+    volumes:
+      - "${DOCKER_VOLUMES}/owntracks/config:/config"
+      - "${DOCKER_VOLUMES}/owntracks/store:/store"
+    restart: unless-stopped
+    container_name: owntracks
+    environment:
+      - "OTR_HOST={{ global.host }}"

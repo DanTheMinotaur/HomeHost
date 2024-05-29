@@ -81,6 +81,8 @@ docker_apps:
     compose_file: apps/ghostfolio/docker-compose.yml
     files:
       - 'apps/ghostfolio/.env'
+  OwnTracks:
+    compose_file: apps/owntracks/compose.yml
 
 dashboard_config:
   Apps:
@@ -91,6 +93,7 @@ dashboard_config:
       VSCode: 'Web version of VSCode'
       Portainer: 'Docker managment'
       Ghostfolio: 'Asset managment'
+      OwnTracks: 'Location Tracking'
   Media:
     icon: fa-photo-video
     apps:
