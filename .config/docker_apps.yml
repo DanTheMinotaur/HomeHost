@@ -85,6 +85,10 @@ docker_apps:
     compose_file: apps/owntracks/compose.yml
   WatchTower:
     compose_file: utils/watchtower/compose.yml
+  Authentik:
+    compose_file: apps/authentik/docker-compose.yml
+    files:
+      - 'apps/authentik/.env'
 
 dashboard_config:
   Apps:
@@ -118,3 +122,4 @@ dashboard_config:
       Speedtest: 'Network Speed test'
       Elastic: 'Kibana - Elastic UI'
       InfluxDB: 'Time series database'
+      Authentik: 'Auth provider'
