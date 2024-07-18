@@ -21,3 +21,8 @@
       vars:
         script: scripts/backup/upload_borg_backups.sh
         timer: "*-*-* 03:00:00"
+    - include_tasks: ansible/tasks/systemd-setup.yml
+      vars:
+        script: scripts/camera_capture.sh
+        timer: "*:0/15"
+        args: "{{ cameras.front }}"
