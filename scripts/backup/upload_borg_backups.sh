@@ -12,9 +12,9 @@ repos_list=$(ls -d1 */)
 
 for r in $repos_list; do
     cd $repos && cd $r
-    tar_dest="/tmp/$(basename $r).tar.gz"
+    tar_dest="${BORG_TAR_PATH}/$(basename $r).tar.gz"
     echo "Compressing $r"
-    tar -czvf $tar_dest .
+    tar -c --use-compress-program=pigz -f $tar_dest .
     echo "Uploading $tar_dest to $backup_remote_path"
     rclone --config $RCLONE_CONFIG copy $tar_dest "$BORG_RCLONE_GDRIVE:$backup_remote_path"
     echo "Upload finished"

@@ -11,7 +11,7 @@ host=${2:-$(hostname)}
 
 date_str=$(date '+%Y%m%d')
 
-repo_path="$backup_loc/${host}__$(basename $to_backup).repo"
+repo_path="$backup_loc/${host}$(basename $to_backup).repo"
 
 mkdir -p $repo_path
 
