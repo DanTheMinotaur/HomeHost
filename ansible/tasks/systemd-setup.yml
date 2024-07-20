@@ -5,8 +5,24 @@
     scripts_dir: "/usr/local/bin"
     systemd_path: "/etc/systemd/system"
     script_name: "{{ script | basename | split('.') | first }}"
+
     service_name: "{{ script | basename | split('.') | first }}.service"
     timer_name: "{{ script | basename | split('.') | first }}.timer"
+
+- name: Format Sub Name
+  set_fact:
+    script_name: >-
+      {{ script_name | default('') }}{% if script_name and job_name %}_{% endif %}{{ job_name | default('') }}
+  when: job_name is defined
+
+- name: Set systemd job/timer variables
+  set_fact:
+    service_name: "{{ script_name }}.service"
+    timer_name: "{{ script_name }}.timer"
+
+# - name: Systemd Script and Timer Names
+#   debug:
+#     msg: "Script: {{ script_name }}; Service: {{service_name}}; Timer: {{timer_name}}"
 
 - name: "Copy {{ script }}"
   ansible.builtin.copy:
@@ -40,7 +56,7 @@
 - name: "Copy {{ timer_name }}"
   ansible.builtin.template:
     src: "scripts/systemd/timer.j2"
-    dest: "{{ systemd_path }}/{{ script_name }}.timer"
+    dest: "{{ systemd_path }}/{{ timer_name }}"
   vars:
     service_timer: "{{ timer }}"
     service: "{{ service_name }}"
