@@ -20,7 +20,11 @@ def load_yaml_file(path: str or Path) -> dict:
 
 def get_docker_port(compose_file: str or Path) -> int:
     services = load_yaml_file(compose_file)['services']
-    ports = services[next(iter(services))]['ports']
+    try:
+        ports = services[next(iter(services))]['ports']
+    except KeyError as e:
+        print(f"Couldn't find 'ports' in {compose_file}")
+        raise e
     return ports[0].split(':')[0]
 
 
