@@ -24,7 +24,7 @@
     - include_tasks: ansible/tasks/systemd-setup.yml
       vars:
         script: scripts/camera_capture.sh
-        timer: "*:0/15"
+        timer: "*:0/5"
         args: "{{ cameras.front }}"
     - include_tasks: ansible/tasks/systemd-setup.yml
       vars:
@@ -35,6 +35,6 @@
     - include_tasks: ansible/tasks/systemd-setup.yml
       vars:
         script: scripts/rclone/rclone_sync.sh
-        timer: "*:0/5"
+        timer: "*:0/1"
         args: "{{ camera.video.src }} {{ camera.video.dest }}"
         job_name: "camera_videos"
