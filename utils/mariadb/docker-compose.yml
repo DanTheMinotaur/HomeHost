@@ -3,7 +3,7 @@ version: '3.1'
 
 services:
   db:
-    image: mariadb
+    image: mariadb:11.5
     ports:
       - '3306:3306'
     container_name: mariadb
@@ -12,3 +12,8 @@ services:
       MARIADB_ROOT_PASSWORD: "{{ mariadb.root_pw }}"
     volumes:
       - '$DOCKER_VOLUMES/mariadb:/var/lib/mysql:Z'
+    networks:
+      - databases
+networks:
+  databases:
+    external: true

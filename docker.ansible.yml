@@ -6,9 +6,10 @@
     - .config/docker_apps.yml
     - .config/configs.yml
   tasks:
-    - name: Create Traefik Network
+    - name: Create traefik-proxy Network
       shell: docker network create traefik-proxy || true
-
+    - name: Create databases Network
+      shell: docker network create databases || true
     - include_tasks: ansible/tasks/docker-compose-deploy.yml
       loop: "{{ lookup('dict', docker_apps, wantlist=True) }}"
       vars:
@@ -16,6 +17,7 @@
         compose_file: "{{ item.value.compose_file }}"
         files: "{{ item.value.files | default([]) }}"
         dirs: "{{ item.value.dirs | default([]) }}"
+        bins: "{{ item.value.bins | default([]) }}"
       when: single is undefined
 
     - include_tasks: ansible/tasks/docker-compose-deploy.yml
@@ -24,4 +26,5 @@
         compose_file: "{{ docker_apps[single]['compose_file'] }}"
         files: "{{ docker_apps[single]['files'] | default([]) }}"
         dirs: "{{ docker_apps[single]['dirs'] | default([]) }}"
+        bins: "{{ docker_apps[single]['bins'] | default([]) }}"
       when: single is defined
