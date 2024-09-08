@@ -89,6 +89,13 @@ docker_apps:
     compose_file: apps/authentik/docker-compose.yml
     files:
       - 'apps/authentik/.env'
+  Railapi:
+    compose_file: projects/railapi/docker-compose.yml
+    files:
+      - 'projects/railapi/Dockerfile'
+      - 'projects/railapi/ports.conf'
+    bins:
+      - 'projects/railapi/app.tar.gz'
 
 dashboard_config:
   Apps:
@@ -123,3 +130,7 @@ dashboard_config:
       Elastic: 'Kibana - Elastic UI'
       InfluxDB: 'Time series database'
       Authentik: 'Auth provider'
+  Projects:
+    icon: fa-diagram-project
+    apps:
+      Railapi: 'Project that proxies Irish rails api'
