@@ -96,6 +96,11 @@ docker_apps:
       - 'projects/railapi/ports.conf'
     bins:
       - 'projects/railapi/app.tar.gz'
+  Postgres:
+    compose_file: utils/postgres/compose.yml
+    files:
+      - 'utils/postgres/.env'
+
 
 dashboard_config:
   Apps:
