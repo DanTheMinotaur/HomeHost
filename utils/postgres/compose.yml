@@ -3,6 +3,7 @@ services:
     container_name: postgres16
     image: docker.io/library/postgres:16-alpine
     restart: unless-stopped
+    shm_size: 512mb
     ports:
       - 5432:5432
     healthcheck:

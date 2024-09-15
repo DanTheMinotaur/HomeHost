@@ -19,27 +19,8 @@ services:
     ports:
       - "9100:9000"
       # - "${COMPOSE_PORT_HTTPS:-9443}:9443"
-    depends_on:
-      - postgresql
-      # - redis
-  postgresql:
-    container_name: postgres16
-    image: docker.io/library/postgres:16-alpine
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
-      start_period: 20s
-      interval: 30s
-      retries: 5
-      timeout: 5s
-    volumes:
-      - "${DOCKER_VOLUMES}/postgres16/:/var/lib/postgresql/data"
-    environment:
-      POSTGRES_PASSWORD: ${PG_PASS:?database password required}
-      POSTGRES_USER: ${PG_USER:-authentik}
-      POSTGRES_DB: ${PG_DB:-authentik}
-    env_file:
-      - .env
+    networks:
+      - databases
   worker:
     container_name: authentik-worker
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.4.2}
@@ -64,7 +45,8 @@ services:
       - "${DOCKER_VOLUMES}/authentik/custom-templates:/templates"
     env_file:
       - .env
-    depends_on:
-      - postgresql
-      # - redis
-
+    networks:
+      - databases
+networks:
+  databases:
+    external: true
