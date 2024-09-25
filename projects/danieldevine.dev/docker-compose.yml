@@ -1,0 +1,34 @@
+version: '3.3'
+services:
+  dd-backend:
+    container_name: danieldevine.dev-backend
+    build:
+      # Some bug with docker downloading with forwarded ssh keys, create a token and use http instead
+      context: https://$GITHUB_TOKEN_DDDEV@github.com/DanTheMinotaur/danieldevine.dev.git#master:backend
+      tags:
+        - dd-backend:latest
+    ports:
+      - '1337:1337'
+    volumes:
+      - '$DOCKER_VOLUMES/danieldevine.dev/:/app/public'
+    env_file:
+      - backend.env
+    restart: unless-stopped
+    # command: "start"
+    networks:
+      - "databases"
+  dd-frontend:
+    container_name: danieldevine.dev-frontend
+    build:
+      # Some bug with docker downloading with forwarded ssh keys, create a token and use http instead
+      context: https://$GITHUB_TOKEN_DDDEV@github.com/DanTheMinotaur/danieldevine.dev.git#master:frontend
+      tags:
+        - dd-frontend:latest
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
+    depends_on: 
+      - "dd-backend"
+networks:
+  databases:
+    external: true

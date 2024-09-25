@@ -100,6 +100,16 @@ docker_apps:
     compose_file: utils/postgres/compose.yml
     files:
       - 'utils/postgres/.env'
+  ddotdev:
+    compose_file: projects/danieldevine.dev/docker-compose.yml
+    files:
+      - 'projects/danieldevine.dev/backend.env'
+  Plausible:
+    compose_file: apps/plausible.io/docker-compose.yml
+    files:
+      - 'apps/plausible.io/plausible-conf.env'
+      - 'apps/plausible.io/clickhouse-config.xml'
+      - 'apps/plausible.io/clickhouse-user-config.xml'
 
 
 dashboard_config:
