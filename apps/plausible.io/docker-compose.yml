@@ -1,0 +1,38 @@
+services:
+  plausible_events_db:
+    image: clickhouse/clickhouse-server:24.3.3.102-alpine
+    restart: unless-stopped
+    volumes:
+      # - event-data:/var/lib/clickhouse
+      # - event-logs:/var/log/clickhouse-server
+      # - ./clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
+      # - ./clickhouse/clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro
+      - "$DOCKER_VOLUMES/plausible/clickhouse/event-data:/var/lib/clickhouse"
+      - "$DOCKER_VOLUMES/plausible/clickhouse/event-logs:/var/log/clickhouse-server"
+      - "./clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro"
+      - "./clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro"
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      - databases
+
+  plausible:
+    container_name: plausible_app
+    image: ghcr.io/plausible/community-edition:v2.1.1
+    restart: unless-stopped
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
+    depends_on:
+      - plausible_events_db
+    ports:
+      - '8000:8000'
+    env_file:
+      - plausible-conf.env
+    networks:
+      - databases
+
+networks:
+  databases:
+    external: true
+  
