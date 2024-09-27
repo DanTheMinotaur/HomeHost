@@ -110,6 +110,8 @@ docker_apps:
       - 'apps/plausible.io/plausible-conf.env'
       - 'apps/plausible.io/clickhouse-config.xml'
       - 'apps/plausible.io/clickhouse-user-config.xml'
+  UptimeKuma:
+    compose_file: apps/uptimekuma/compose.yaml
 
 
 dashboard_config:
@@ -145,7 +147,9 @@ dashboard_config:
       Elastic: 'Kibana - Elastic UI'
       InfluxDB: 'Time series database'
       Authentik: 'Auth provider'
+      UptimeKuma: 'Service Monitoring'
   Projects:
     icon: fa-diagram-project
     apps:
       Railapi: 'Project that proxies Irish rails api'
+      ddotdev: 'Personal Website'
