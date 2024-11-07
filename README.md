@@ -33,12 +33,6 @@ ansible-playbook docker.ansible.yml
 ansible-playbook docker.ansible.yml --extra-vars 'single=Mosquitto'
 ```
 
-## Run Dev setup
-
-```shell
-ansible-playbook dev-setup.ansible.yml
-```
-
 ## Setup server scripts
 
 ```shell
