@@ -83,6 +83,8 @@ docker_apps:
       - 'apps/ghostfolio/.env'
   OwnTracks:
     compose_file: apps/owntracks/compose.yml
+    files:
+      - 'apps/owntracks/config.js'
   WatchTower:
     compose_file: utils/watchtower/compose.yml
   Authentik:
