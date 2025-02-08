@@ -2,22 +2,19 @@
 docker_apps:
   Traefik:
     compose_file: utils/traefik/docker-compose.yml
-    files: 
-      - 'utils/traefik/traefik.toml'
+    files:
+      - "utils/traefik/traefik.toml"
   Deluge:
     compose_file: apps/deluge/docker-compose.yml
   Pihole:
     compose_file: apps/pihole/docker-compose.yml
-    files: [
-      'apps/pihole/pihole.env',
-      'apps/pihole/custom.list'
-    ]
+    files: ["apps/pihole/pihole.env", "apps/pihole/custom.list"]
   Jellyfin:
     compose_file: apps/jellyfin/docker-compose.yml
   Frigate:
     compose_file: apps/frigate/docker-compose.yml
     files:
-      - 'apps/frigate/config.yml'
+      - "apps/frigate/config.yml"
   Radarr:
     compose_file: apps/radarr/docker-compose.yml
   Heimdall:
@@ -35,21 +32,21 @@ docker_apps:
   Mosquitto:
     compose_file: utils/mosquitto/docker-compose.yml
     files:
-      - 'utils/mosquitto/mosquitto.conf'
+      - "utils/mosquitto/mosquitto.conf"
   HomerLocal:
     compose_file: apps/homer/local/docker-compose.yml
     files:
-      - 'apps/homer/manifest.json'
-      - 'apps/homer/local/config.yml'
+      - "apps/homer/manifest.json"
+      - "apps/homer/local/config.yml"
     dirs:
-      'apps/homer/icons/': 'icons/'
+      "apps/homer/icons/": "icons/"
   HomerRemote:
     compose_file: apps/homer/remote/docker-compose.yml
     files:
-      - 'apps/homer/manifest.json'
-      - 'apps/homer/remote/config.yml'
+      - "apps/homer/manifest.json"
+      - "apps/homer/remote/config.yml"
     dirs:
-      'apps/homer/icons/': 'icons/'
+      "apps/homer/icons/": "icons/"
   Mariadb:
     compose_file: utils/mariadb/docker-compose.yml
   Wallabag:
@@ -65,93 +62,94 @@ docker_apps:
   Elastic:
     compose_file: utils/elastic/docker-compose.yml
     files:
-      - 'utils/elastic/.env'
-      - 'utils/elastic/metricbeat.yml'
-      - 'utils/elastic/filebeat.yml'
-      - 'utils/elastic/logstash.conf'
+      - "utils/elastic/.env"
+      - "utils/elastic/metricbeat.yml"
+      - "utils/elastic/filebeat.yml"
+      - "utils/elastic/logstash.conf"
   Nocodb:
     compose_file: apps/nocodb/compose.yml
     files:
-      - 'apps/nocodb/.env'
+      - "apps/nocodb/.env"
   Redis:
     compose_file: utils/redis/compose.yml
     files:
-      - 'utils/redis/redis.conf'
+      - "utils/redis/redis.conf"
   Ghostfolio:
     compose_file: apps/ghostfolio/docker-compose.yml
     files:
-      - 'apps/ghostfolio/.env'
+      - "apps/ghostfolio/.env"
   OwnTracks:
     compose_file: apps/owntracks/compose.yml
     files:
-      - 'apps/owntracks/config.js'
+      - "apps/owntracks/config.js"
   WatchTower:
     compose_file: utils/watchtower/compose.yml
   Authentik:
     compose_file: apps/authentik/docker-compose.yml
     files:
-      - 'apps/authentik/.env'
+      - "apps/authentik/.env"
   Railapi:
     compose_file: projects/railapi/docker-compose.yml
     files:
-      - 'projects/railapi/Dockerfile'
-      - 'projects/railapi/ports.conf'
+      - "projects/railapi/Dockerfile"
+      - "projects/railapi/ports.conf"
     bins:
-      - 'projects/railapi/app.tar.gz'
+      - "projects/railapi/app.tar.gz"
   Postgres:
     compose_file: utils/postgres/compose.yml
     files:
-      - 'utils/postgres/.env'
+      - "utils/postgres/.env"
   ddotdev:
     compose_file: projects/danieldevine.dev/docker-compose.yml
     files:
-      - 'projects/danieldevine.dev/backend.env'
+      - "projects/danieldevine.dev/backend.env"
   Plausible:
     compose_file: apps/plausible.io/docker-compose.yml
     files:
-      - 'apps/plausible.io/plausible-conf.env'
-      - 'apps/plausible.io/clickhouse-config.xml'
-      - 'apps/plausible.io/clickhouse-user-config.xml'
+      - "apps/plausible.io/plausible-conf.env"
+      - "apps/plausible.io/clickhouse-config.xml"
+      - "apps/plausible.io/clickhouse-user-config.xml"
   UptimeKuma:
     compose_file: apps/uptimekuma/compose.yaml
-
+  Ollama:
+    compose_file: apps/ollama/compose.yaml
 
 dashboard_config:
   Apps:
     icon: fa-rocket
     apps:
-      Nocodb: 'Smart Spreadsheet app'
-      Wallabag: 'App for saving webpages'
-      VSCode: 'Web version of VSCode'
-      Portainer: 'Docker managment'
-      Ghostfolio: 'Asset managment'
-      OwnTracks: 'Location Tracking'
+      Nocodb: "Smart Spreadsheet app"
+      Wallabag: "App for saving webpages"
+      VSCode: "Web version of VSCode"
+      Portainer: "Docker managment"
+      Ghostfolio: "Asset managment"
+      OwnTracks: "Location Tracking"
   Media:
     icon: fa-photo-video
     apps:
-      Deluge: 'Torrenting Application'
-      Jellyfin: 'Media and DLNA Server'
-      Radarr: 'Movie collection manager'
-      Sonarr: 'TV show collection manager'
-      Prowlarr: 'Indexer manager/proxy'
+      Deluge: "Torrenting Application"
+      Jellyfin: "Media and DLNA Server"
+      Radarr: "Movie collection manager"
+      Sonarr: "TV show collection manager"
+      Prowlarr: "Indexer manager/proxy"
   Home Automation:
     icon: fa-home
     apps:
-      HomeAssistant: 'Home automation dashboard'
-      Frigate: 'Webcam software and network video recorder(NVR)'
+      HomeAssistant: "Home automation dashboard"
+      Frigate: "Webcam software and network video recorder(NVR)"
   Utilities:
     icon: fa-wave-square
     apps:
-      Netdata: 'Server monitoring software with WebUI'
-      Traefik: 'Reverse proxy'
-      Pihole: 'Add blocking and DNS'
-      Speedtest: 'Network Speed test'
-      Elastic: 'Kibana - Elastic UI'
-      InfluxDB: 'Time series database'
-      Authentik: 'Auth provider'
-      UptimeKuma: 'Service Monitoring'
+      Netdata: "Server monitoring software with WebUI"
+      Traefik: "Reverse proxy"
+      Pihole: "Add blocking and DNS"
+      Speedtest: "Network Speed test"
+      Elastic: "Kibana - Elastic UI"
+      InfluxDB: "Time series database"
+      Authentik: "Auth provider"
+      UptimeKuma: "Service Monitoring"
   Projects:
     icon: fa-diagram-project
     apps:
-      Railapi: 'Project that proxies Irish rails api'
-      ddotdev: 'Personal Website'
+      Railapi: "Project that proxies Irish rails api"
+      ddotdev: "Personal Website"
