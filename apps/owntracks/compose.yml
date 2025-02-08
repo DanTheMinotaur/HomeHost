@@ -1,4 +1,14 @@
 services:
+  owntracks-frontend:
+    image: owntracks/frontend
+    ports:
+      - 8084:80
+    volumes:
+      - ./config.js:/usr/share/nginx/html/config/config.js
+    environment:
+      - SERVER_HOST=otrecorder
+      - SERVER_PORT=8083
+    restart: unless-stopped
   otrecorder:
     image: owntracks/recorder
     ports:
@@ -10,13 +20,3 @@ services:
     container_name: owntracks
     environment:
       - "OTR_HOST={{ global.host }}"
-  owntracks-frontend:
-    image: owntracks/frontend
-    ports:
-      - 8084:80
-    volumes:
-      - ./config.js:/usr/share/nginx/html/config/config.js
-    environment:
-      - SERVER_HOST=otrecorder
-      - SERVER_PORT=8083
-    restart: unless-stopped
