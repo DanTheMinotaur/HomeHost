@@ -1,4 +1,3 @@
-version: '3'
 services:
   homeassistant:
     container_name: homeassistant
@@ -11,3 +10,25 @@ services:
     restart: unless-stopped
     privileged: true
     # network_mode: host
+  wyoming-whisper:
+    container_name: homeassistant-whisper
+    stdin_open: true
+    tty: true
+    ports:
+      - 10300:10300
+    volumes:
+      - "${DOCKER_VOLUMES}/homeassistant-whisper/:/data"
+    image: rhasspy/wyoming-whisper
+    command: --model tiny-int8 --language en
+    restart: unless-stopped
+  wyoming-piper:
+    container_name: homeassistant-piper
+    stdin_open: true
+    tty: true
+    ports:
+      - 10200:10200
+    volumes:
+      - "${DOCKER_VOLUMES}/homeassistant-piper/:/data"
+    image: rhasspy/wyoming-piper
+    command: --voice en_US-lessac-medium
+    restart: unless-stopped
