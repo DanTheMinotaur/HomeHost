@@ -3,7 +3,7 @@
   set_fact:
     docker_path: "{{ ansible_env.HOME }}/docker/{{ app_name }}/"
 - name: "Ensures {{ docker_path }} dir exists"
-  file: 
+  file:
     path: "{{ docker_path }}"
     state: directory
     owner: "{{ansible_user_id }}"
@@ -14,8 +14,8 @@
     dest: "{{ docker_path }}"
   register: copied_compose_file
 - name: Copy required files
-  template: 
-    src: "{{ file }}" 
+  template:
+    src: "{{ file }}"
     dest: "{{ docker_path }}"
   with_items: "{{ files }}"
   loop_control:
@@ -32,25 +32,16 @@
   when: dirs is defined and (dirs | length > 0)
   register: copied_dirs
 - name: Copy binaries
-  copy: 
-    src: "{{ file }}" 
+  copy:
+    src: "{{ file }}"
     dest: "{{ docker_path }}"
   with_items: "{{ bins }}"
   loop_control:
     loop_var: file
   when: bins is defined and (bins | length > 0)
   register: copied_bins
-- name: Start Docker App
-  block:
-    - name: "Start Docker Compose App: {{ app_name }} [ansible plugin]"
-      community.docker.docker_compose:
-        project_src: "{{ docker_path }}"
-        build: yes
-        restarted: yes
-        remove_orphans: yes
-      when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed or copied_bins.changed
-  rescue:
-    - name: "Start Docker Compose App: {{ app_name }} [via shell]"
-      ansible.builtin.shell:
-        cmd: docker compose up --build --remove-orphans --force-recreate --detach
-        chdir: "{{ docker_path }}"
+- name: "Start Docker Compose App: {{ app_name }} [via shell]"
+  ansible.builtin.shell:
+    cmd: docker compose up --build --remove-orphans --force-recreate --detach
+    chdir: "{{ docker_path }}"
+  when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed or copied_bins.changed
