@@ -113,6 +113,10 @@ docker_apps:
     compose_file: apps/uptimekuma/compose.yaml
   Ollama:
     compose_file: apps/ollama/compose.yaml
+  ArchiveBox:
+    compose_file: apps/archive-box/docker-compose.yml
+  Commafeed:
+    compose_file: apps/commafeed/compose.yml
 
 dashboard_config:
   Apps:
@@ -124,6 +128,8 @@ dashboard_config:
       Portainer: "Docker managment"
       Ghostfolio: "Asset managment"
       OwnTracks: "Location Tracking"
+      Ollama: "LLM/AI Slop"
+      Commafeed: "RSS Feeds"
   Media:
     icon: fa-photo-video
     apps:
@@ -132,6 +138,7 @@ dashboard_config:
       Radarr: "Movie collection manager"
       Sonarr: "TV show collection manager"
       Prowlarr: "Indexer manager/proxy"
+      ArchiveBox: "Web Archiving"
   Home Automation:
     icon: fa-home
     apps:

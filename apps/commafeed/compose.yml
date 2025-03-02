@@ -1,0 +1,12 @@
+services:
+  commafeed:
+    image: athou/commafeed:latest-h2
+    restart: unless-stopped
+    volumes:
+      - "$DOCKER_VOLUMES/commafeed:/commafeed/data"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    ports:
+      - 8082:8082
