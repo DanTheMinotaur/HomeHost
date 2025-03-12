@@ -9,7 +9,7 @@ backup_loc=$BORG_REPO_BACKUPS
 
 host=${2:-$(hostname)}
 
-date_str=$(date '+%Y%m%d')
+date_str=$(date '+%Y%m%d.%H%M%S')
 
 repo_path="$backup_loc/${host}$(basename $to_backup).repo"
 
