@@ -115,8 +115,8 @@ docker_apps:
     compose_file: apps/ollama/compose.yaml
   ArchiveBox:
     compose_file: apps/archive-box/docker-compose.yml
-  Commafeed:
-    compose_file: apps/commafeed/compose.yml
+  FreshRSS:
+    compose_file: apps/freshrss/compose.yml
 
 dashboard_config:
   Apps:
@@ -129,7 +129,6 @@ dashboard_config:
       Ghostfolio: "Asset managment"
       OwnTracks: "Location Tracking"
       Ollama: "LLM/AI Slop"
-      Commafeed: "RSS Feeds"
   Media:
     icon: fa-photo-video
     apps:
@@ -139,6 +138,7 @@ dashboard_config:
       Sonarr: "TV show collection manager"
       Prowlarr: "Indexer manager/proxy"
       ArchiveBox: "Web Archiving"
+      FreshRSS: "RSS Feeds"
   Home Automation:
     icon: fa-home
     apps:
