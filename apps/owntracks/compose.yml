@@ -20,3 +20,5 @@ services:
     container_name: owntracks
     environment:
       - "OTR_HOST={{ global.host }}"
+      - "OTR_USER={{ owntracks.mqtt.user }}"
+      - "OTR_PASS={{ owntracks.mqtt.password }}"

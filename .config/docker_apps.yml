@@ -117,6 +117,8 @@ docker_apps:
     compose_file: apps/archive-box/docker-compose.yml
   FreshRSS:
     compose_file: apps/freshrss/compose.yml
+  N8N:
+    compose_file: apps/n8n/compose.yml
 
 dashboard_config:
   Apps:
