@@ -1,19 +1,20 @@
-version: '3'
+version: "3"
 
 services:
   reverse-proxy:
-    image: traefik:v3.0
+    image: traefik:v3.3
     container_name: traefik
     ports:
       - "80:80"
-      - '443:443'
+      - "443:443"
+      - "8666:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock
       - ./traefik.toml:/traefik.toml
-      - './dynamic_configs/:/dynamic_configs/'
+      - "./dynamic_configs/:/dynamic_configs/"
     restart: unless-stopped
-    networks: 
+    networks:
       - traefik_proxy
 
 networks:
