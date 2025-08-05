@@ -14,7 +14,7 @@
 [providers]
   [providers.docker]
     watch = true
-    exposedByDefault = false
+    exposedByDefault = true
 
 [log]
   level = "DEBUG"
