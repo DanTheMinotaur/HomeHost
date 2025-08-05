@@ -119,6 +119,8 @@ docker_apps:
     compose_file: apps/freshrss/compose.yml
   N8N:
     compose_file: apps/n8n/compose.yml
+  Adgaurd:
+    compose_file: apps/adguardhome/compose.yml
 
 dashboard_config:
   Apps:

@@ -1,0 +1,40 @@
+name: Adguard Home
+services:
+    adguardhome:
+        container_name: adguardhome
+        restart: unless-stopped
+        volumes:
+            - ${DOCKER_VOLUMES}/adguard/workdir:/opt/adguardhome/work
+            - ${DOCKER_VOLUMES}/adguard/confdir:/opt/adguardhome/conf
+        ports:
+            - 53:53/tcp
+            - 53:53/udp
+            # DHCP
+            # - 67:67/udp
+            # - 68:68/udp
+            # Web
+            - 8040:80/tcp # web ui
+            # - 443:443/tcp
+            # - 443:443/udp
+            # - 3000:3000/tcp # init ui
+            # # DNS-TLS
+            # - 853:853/tcp
+            # # DNS QUIC
+            # - 853:853/udp
+            # - 784:784/udp
+            # - 8853:8853/udp
+            # # DNSCrypt
+            # - 5443:5443/tcp
+            # - 5443:5443/udp
+        image: adguard/adguardhome
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.whoami.rule=Host(`adguard.home`)"
+            - "traefik.http.routers.whoami.entrypoints=web"
+            - "traefik.http.services.whoami.loadbalancer.server.port=8040"
+        networks:
+            - traefik-router
+
+networks:
+  traefik-router:
+    external: true
