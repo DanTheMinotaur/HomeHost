@@ -1,34 +1,36 @@
+name: {{app_name}}
+
 services:
-  homeassistant:
+  {{app_name}}:
     container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable"
+    image: "ghcr.io/home-assistant/home-assistant:2025.8"
     volumes:
       - "${DOCKER_VOLUMES}/homeassistant/:/config"
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - 8123:8123
+      - 127.0.0.1:8123:8123
     restart: unless-stopped
     privileged: true
     # network_mode: host
-  wyoming-whisper:
-    container_name: homeassistant-whisper
-    stdin_open: true
-    tty: true
-    ports:
-      - 10300:10300
-    volumes:
-      - "${DOCKER_VOLUMES}/homeassistant-whisper/:/data"
-    image: rhasspy/wyoming-whisper
-    command: --model tiny-int8 --language en
-    restart: unless-stopped
-  wyoming-piper:
-    container_name: homeassistant-piper
-    stdin_open: true
-    tty: true
-    ports:
-      - 10200:10200
-    volumes:
-      - "${DOCKER_VOLUMES}/homeassistant-piper/:/data"
-    image: rhasspy/wyoming-piper
-    command: --voice en_US-lessac-medium
-    restart: unless-stopped
+  # wyoming-whisper:
+  #   container_name: homeassistant-whisper
+  #   stdin_open: true
+  #   tty: true
+  #   ports:
+  #     - 10300:10300
+  #   volumes:
+  #     - "${DOCKER_VOLUMES}/homeassistant-whisper/:/data"
+  #   image: rhasspy/wyoming-whisper
+  #   command: --model tiny-int8 --language en
+  #   restart: unless-stopped
+  # wyoming-piper:
+  #   container_name: homeassistant-piper
+  #   stdin_open: true
+  #   tty: true
+  #   ports:
+  #     - 10200:10200
+  #   volumes:
+  #     - "${DOCKER_VOLUMES}/homeassistant-piper/:/data"
+  #   image: rhasspy/wyoming-piper
+  #   command: --voice en_US-lessac-medium
+  #   restart: unless-stopped
