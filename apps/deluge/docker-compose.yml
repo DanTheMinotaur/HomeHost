@@ -1,7 +1,7 @@
 ---
-version: "2.1"
+name: {{app_name}}
 services:
-  deluge:
+  {{app_name}}:
     image: lscr.io/linuxserver/deluge:latest
     container_name: deluge
     environment:
@@ -13,8 +13,8 @@ services:
       - "${DOCKER_VOLUMES}/deluge/:/config"
       - "${DRIVE_MEDIA}:/mount/"
     ports:
-      - 8112:8112
-      - 6881:6881
+      - 127.0.0.1:8112:8112 # webui
+      - 6881:6881 # torrent traffic
       - 6881:6881/udp
-      - 58846:58846
+      - 58846:58846 # rpc 
     restart: unless-stopped
