@@ -11,8 +11,14 @@
 - name: "Copy Docker Compose File | {{ compose_file }} -> {{ docker_path }}"
   template:
     src: "{{ compose_file }}"
-    dest: "{{ docker_path }}"
+    dest: "{{ docker_path }}/compose.yaml"
   register: copied_compose_file
+- name: "Copy Docker Labels"
+  template:
+    src: ./traefik-labels.tpl.yml
+    dest: "{{ docker_path }}/labels.yaml"
+  when: domains is defined
+  register: copied_labels
 - name: Copy required files
   template:
     src: "{{ file }}"
@@ -41,7 +47,13 @@
   when: bins is defined and (bins | length > 0)
   register: copied_bins
 - name: "Start Docker Compose App: {{ app_name }} [via shell]"
-  ansible.builtin.shell:
-    cmd: docker compose up --build --remove-orphans --force-recreate --detach
+  ansible.builtin.shell: >
+    docker compose
+    -f compose.yaml
+    {% if domain is defined and domain %}
+    -f labels.yaml
+    {% endif %}
+    up --build --remove-orphans --force-recreate --detach
+  args:
     chdir: "{{ docker_path }}"
-  when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed or copied_bins.changed
+  when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed or copied_bins.changed or copied_labels.changed

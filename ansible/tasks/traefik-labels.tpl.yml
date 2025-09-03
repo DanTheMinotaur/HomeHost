@@ -1,0 +1,17 @@
+services:
+    {{app_name}}:
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.{{app_name}}.rule={{ domains | map('regex_replace', '^(.*)$', 'Host(`\\1`)') | join(' || ') }}"
+            - "traefik.http.routers.{{app_name}}.entrypoints=https"
+            - "traefik.http.routers.{{app_name}}.tls=true"
+            - "traefik.http.routers.{{app_name}}.tls.certresolver=letsencrypt"
+{% if domain_port is defined %}
+            - "traefik.http.services.{{app_name}}.loadbalancer.server.port={{domain_port}}"
+{% endif %}
+        networks:
+            - "traefik-router"
+
+networks:
+  "traefik-router":
+    external: true
