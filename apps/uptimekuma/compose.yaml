@@ -1,8 +1,9 @@
+name: {{app_name}}
 services:
-  uptime-kuma:
+  {{app_name}}:
     restart: unless-stopped
     ports:
-        - 3001:3001
+        - 127.0.0.1:3001:3001
     volumes:
         - ${DOCKER_VOLUMES}/uptime-kuma:/app/data
         - /var/run/docker.sock:/var/run/docker.sock
