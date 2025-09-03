@@ -50,7 +50,7 @@
   ansible.builtin.shell: >
     docker compose
     -f compose.yaml
-    {% if domain is defined and domain %}
+    {% if domains is defined and domains %}
     -f labels.yaml
     {% endif %}
     up --build --remove-orphans --force-recreate --detach
