@@ -1,11 +1,11 @@
-version: '3.3'
+name: {{app_name}}
 services:
-  eclipse-mosquitto:
+  {{app_name}}:
     container_name: mosquitto
     restart: unless-stopped
     ports:
       - '1883:1883'
-      - '9001:9001'
+      # - '9001:9001'
     volumes:
       - './mosquitto.conf:/mosquitto/config/mosquitto.conf'
       - '$DOCKER_VOLUMES/mosquitto/data:/mosquitto/data'
