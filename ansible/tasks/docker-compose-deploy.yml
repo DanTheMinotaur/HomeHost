@@ -17,7 +17,7 @@
   template:
     src: ./traefik-labels.tpl.yml
     dest: "{{ docker_path }}/labels.yaml"
-  when: domains is defined
+  when: domains is defined and domains
   register: copied_labels
 - name: Copy required files
   template:
