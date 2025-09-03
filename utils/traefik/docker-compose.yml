@@ -1,3 +1,4 @@
+name: Traefik
 services:
   reverse-proxy:
     image: traefik:v3.5
@@ -5,12 +6,15 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8666:8080"
+      # - "8666:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock
-      - ./traefik.toml:/traefik.toml
-      - "./dynamic_configs/:/dynamic_configs/"
+      - "./traefik.yaml:/traefik.yml:ro"
+      - "${DOCKER_VOLUMES}/dynamic_configs/:/dynamic_configs/"
+      - "${DOCKER_VOLUMES}/traefik/letsencrypt:/letsencrypt"
+    environment:
+      - CLOUDFLARE_EMAIL={{ traefik.cf_email }}
+      - CLOUDFLARE_DNS_API_TOKEN={{ traefik.cf_token }}
     restart: unless-stopped
     networks:
       - traefik-router
