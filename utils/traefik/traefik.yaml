@@ -1,0 +1,40 @@
+entryPoints:
+  http:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: https
+          scheme: https
+  https:
+    address: ":443"
+    http:
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: "{{ traefik.wildcard_domain }}"
+            sans:
+              - "*.{{ traefik.wildcard_domain }}"
+providers:
+  docker:
+    exposedByDefault: false
+
+api:
+  dashboard: true
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: "{{ traefik.letsencrypt_email }}"
+      storage: /letsencrypt/acme.json
+      #caServer: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+          - "1.0.0.1:53"
+        delayBeforeCheck: 20
+# Uncomment the following lines if needed
+log:
+  level: DEBUG
+  # filePath: /letsencrypt/traefik.log
