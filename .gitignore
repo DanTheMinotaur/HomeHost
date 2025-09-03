@@ -1,5 +1,5 @@
 hosts
 .vscode
 venv
-.config/configs.yml
+.config/
 .idea/
