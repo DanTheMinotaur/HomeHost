@@ -1,23 +1,14 @@
+name: {{app_name}}
 services:
-  owntracks-frontend:
-    image: owntracks/frontend
-    ports:
-      - 8084:80
-    volumes:
-      - ./config.js:/usr/share/nginx/html/config/config.js
-    environment:
-      - SERVER_HOST=otrecorder
-      - SERVER_PORT=8083
-    restart: unless-stopped
-  otrecorder:
+  {{app_name}}:
     image: owntracks/recorder
     ports:
-      - 8083:8083
+      - 127.0.0.1:8083:8083
     volumes:
       - "${DOCKER_VOLUMES}/owntracks/config:/config"
       - "${DOCKER_VOLUMES}/owntracks/store:/store"
     restart: unless-stopped
-    container_name: owntracks
+    container_name: {{app_name}}
     environment:
       - "OTR_HOST={{ global.host }}"
       - "OTR_USER={{ owntracks.mqtt.user }}"

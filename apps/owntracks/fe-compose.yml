@@ -1,0 +1,14 @@
+name: {{app_name}}
+services:
+  {{app_name}}:
+    image: owntracks/frontend
+    ports:
+      - 127.0.0.1:8084:80
+    volumes:
+      - ./config.js:/usr/share/nginx/html/config/config.js
+    environment:
+      - SERVER_HOST=OwnTracksRecorder
+      - SERVER_PORT=8083
+    restart: unless-stopped
+    container_name: {{app_name}}
+    
