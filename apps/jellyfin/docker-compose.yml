@@ -1,5 +1,4 @@
 name: {{app_name}}
-
 services:
   {{app_name}}:
     image: lscr.io/linuxserver/jellyfin:10.10.7
