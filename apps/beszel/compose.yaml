@@ -5,4 +5,4 @@ services:
     restart: unless-stopped
     volumes:
       - "$DOCKER_VOLUMES/beszel/beszel_data:/beszel_data"
-      - "$DOCKER_VOLUMES/beszel/beszel_/beszel_socket:/beszel_socket"
+      - "$DOCKER_VOLUMES/beszel/beszel_socket:/beszel_socket"
