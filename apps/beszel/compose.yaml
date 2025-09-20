@@ -1,0 +1,8 @@
+services:
+  {{app_name}}:
+    image: henrygd/beszel:latest
+    container_name: {{app_name}}
+    restart: unless-stopped
+    volumes:
+      - "$DOCKER_VOLUMES/beszel/beszel_data:/beszel_data"
+      - "$DOCKER_VOLUMES/beszel/beszel_/beszel_socket:/beszel_socket"
