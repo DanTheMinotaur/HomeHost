@@ -1,0 +1,9 @@
+services:
+  {{app_name}}:
+    container_name: {{app_name}}
+    restart: unless-stopped
+    image: miniflux/miniflux:latest
+    environment:
+      - DATABASE_URL=postgres://{{ miniflux.postgres.user }}:{{ miniflux.postgres.pw }}@{{ global.host }}/{{ miniflux.postgres.db }}?sslmode=disable
+      - RUN_MIGRATIONS=1
+      - BASE_URL={{ miniflux.base_url }}
