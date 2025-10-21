@@ -1,6 +1,7 @@
 services:
     {{app_name}}:
         container_name: {{app_name}}
+        restart: unless-stopped
         # ports:
         #     - 8084:80
         volumes:
