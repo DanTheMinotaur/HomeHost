@@ -12,13 +12,14 @@ BASE_CONFIG = HOMER_DIR.joinpath('config_base.yml')
 ICONS_DIR = HOMER_DIR.joinpath('icons/')
 ICONS_ZIP = HOMER_DIR.joinpath('icons.zip')
 
+DASHBOARDS_DOMAINS = ['test.com', 'ts.test.com']
 
-def load_yaml_file(path: str or Path) -> dict:
+def load_yaml_file(path: str | Path) -> dict:
     with open(path) as f:
         return yaml.safe_load(f)
 
 
-def get_docker_port(compose_file: str or Path) -> int:
+def get_docker_port(compose_file: str | Path) -> int:
     services = load_yaml_file(compose_file)['services']
     try:
         ports = services[next(iter(services))]['ports']
@@ -45,10 +46,11 @@ def extract_icons(icons_to_extract: list, destination: Path) -> None:
             zipfile.ZipFile(ICONS_ZIP).extract(icon, path=destination)
 
 
-def generate_dashboard_services(base_url: str):
+def generate_dashboard_services(dashboard_type: str = 'local'):
     docker_apps = load_yaml_file(DOCKER_APPS)
     dashboard_config: dict = docker_apps['dashboard_config']
     docker_app_configs: dict = docker_apps['docker_apps']
+    domains: dict = docker_apps['domains']
     homer_services = []
     for section, data in dashboard_config.items():
         service_group = {'name': section, 'icon': f'fas {data["icon"]}', 'items': []}
@@ -57,11 +59,30 @@ def generate_dashboard_services(base_url: str):
         icons = find_icons(list(apps.keys()))
 
         for name, desc in apps.items():
-            port = get_docker_port(docker_app_configs[name]['compose_file'])
+
+            app_config = docker_app_configs.get(name)
+            
+            if not app_config:
+                raise NameError(f"No app config called {name}")
+            
+            app_config_domains = app_config.get('domains')
+
+            if not app_config_domains:
+                continue
+            dashboard_domain = None
+            for d in app_config_domains:
+                if d.endswith(domains[dashboard_type]):
+                    dashboard_domain = d
+                    break
+
+            if not dashboard_domain:
+                continue
+
+
             service = {
                 'name': name,
                 'subtitle': desc,
-                'url': f'{base_url}:{port}',
+                'url': f'https://{dashboard_domain}',
                 'target': '_blank',
                 'logo': f'assets/icons/{icons[name]}'
             }
@@ -72,19 +93,19 @@ def generate_dashboard_services(base_url: str):
     return homer_services
 
 
-def generate_homer_config(url_type: str, output_path: str or Path):
+def generate_homer_config(output_path: str | Path, dashboard_type: str = 'local'):
     base_config = load_yaml_file(BASE_CONFIG)
-    generated = generate_dashboard_services(load_yaml_file(GENERAL_CONFIG)['global'][url_type])
+    generated = generate_dashboard_services(dashboard_type)
     try:
         services = generated + base_config['services']
     except TypeError:
         services = generated
-
+    
     base_config['services'] = services
+
     with open(output_path, 'w') as f:
         yaml.dump(base_config, f)
 
-
 if __name__ == "__main__":
-    generate_homer_config('dashboard_local', HOMER_DIR.joinpath('local/config.yml'))
-    generate_homer_config('dashboard_vpn', HOMER_DIR.joinpath('remote/config.yml'))
+    generate_homer_config(HOMER_DIR.joinpath('remote/config.yml'), 'remote')
+    generate_homer_config(HOMER_DIR.joinpath('local/config.yml'), 'local')
