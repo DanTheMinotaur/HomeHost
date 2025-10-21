@@ -1,12 +1,11 @@
 ---
-version: "2"
 services:
-  homer-local:
-    image: b4bz/homer
-    container_name: homer-local
+  {{app_name}}:
+    image: b4bz/homer:latest
+    container_name: {{app_name}}
     volumes:
       - './:/www/assets/'
-    ports:
-      - 1111:8080
+    # ports:
+    #   - 1111:8080
     user: 1000:1000
     restart: unless-stopped
