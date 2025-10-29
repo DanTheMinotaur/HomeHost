@@ -1,21 +1,23 @@
+name: {{app_name}}
 services:
-  n8n:
+  {{app_name}}:
     image: docker.n8n.io/n8nio/n8n
-    container_name: n8n
+    container_name: {{app_name}}
     restart: unless-stopped
     ports:
-      - "5678:5678"
+      - "127.0.0.1:5678:5678"
     environment:
-      # - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
+      - N8N_HOST={{ n8n.domain }}
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - NODE_ENV=production
-      # - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
+      - WEBHOOK_URL=https://{{ n8n.domain }}/
       - GENERIC_TIMEZONE=Europe/Dublin
-      - PUID=${UID}
-      - PGID=${GID}
+      - PUID=1000
+      - PGID=1000
       - N8N_RUNNERS_ENABLED=true
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
     volumes:
       - $DOCKER_VOLUMES/n8n/.n8n:/home/node/.n8n
       - $DOCKER_VOLUMES/n8n/local-files:/files
-    user: "${UID}:${GID}"
+    user: "1000:1000"
