@@ -46,14 +46,14 @@
     loop_var: file
   when: bins is defined and (bins | length > 0)
   register: copied_bins
-- name: "Start Docker Compose App: {{ app_name }} [via shell]"
-  ansible.builtin.shell: >
-    docker compose
-    -f compose.yaml
-    {% if domains is defined and domains %}
-    -f labels.yaml
-    {% endif %}
-    up --build --remove-orphans --force-recreate --detach
-  args:
-    chdir: "{{ docker_path }}"
-  when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed or copied_bins.changed or copied_labels.changed
+# - name: "Start Docker Compose App: {{ app_name }} [via shell]"
+#   ansible.builtin.shell: >
+#     docker compose
+#     -f compose.yaml
+#     {% if domains is defined and domains %}
+#     -f labels.yaml
+#     {% endif %}
+#     up --build --remove-orphans --force-recreate --detach
+#   args:
+#     chdir: "{{ docker_path }}"
+#   when: copied_compose_file.changed or copied_files.changed or copied_dirs.changed or copied_bins.changed or copied_labels.changed
