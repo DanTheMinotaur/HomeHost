@@ -1,6 +1,6 @@
-name: {{app_name}}
+name: Mosquitto
 services:
-  {{app_name}}:
+  Mosquitto:
     container_name: mosquitto
     restart: unless-stopped
     ports:
@@ -8,6 +8,7 @@ services:
       # - '9001:9001'
     volumes:
       - './mosquitto.conf:/mosquitto/config/mosquitto.conf'
+      - './mosquitto_pw.txt:/mosquitto/config/mosquitto_pw.txt'
       - '$DOCKER_VOLUMES/mosquitto/data:/mosquitto/data'
       - '$DOCKER_VOLUMES/mosquitto/logs:/mosquitto/log'
     image: eclipse-mosquitto
