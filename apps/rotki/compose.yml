@@ -2,8 +2,6 @@ services:
     {{app_name}}:
         container_name: {{app_name}}
         restart: unless-stopped
-        # ports:
-        #     - 8084:80
         volumes:
             - $DOCKER_VOLUMES/rotki/data:/data
             - $DOCKER_VOLUMES/rotki/logs:/logs
