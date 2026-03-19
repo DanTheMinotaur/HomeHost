@@ -1,51 +1,21 @@
-name: {{app_name}}
-
 services:
   {{app_name}}:
+    image: "lscr.io/linuxserver/homeassistant:latest"
     container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:2025.8"
-    volumes:
-      - "${DOCKER_VOLUMES}/homeassistant/:/config"
-      - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 127.0.0.1:8123:8123
-    restart: unless-stopped
+    # network_mode: host
     privileged: true
-  faster-whisper:
-    image: lscr.io/linuxserver/faster-whisper:latest
-    container_name: faster-whisper
+    volumes:
+      - "${DOCKER_VOLUMES}/hass/:/config"
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
     environment:
+      - TZ=Europe/Dublin
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - WHISPER_MODEL=base-int8
-      - LOCAL_ONLY= #optional
-      - WHISPER_BEAM=1 #optional
-      - WHISPER_LANG=en #optional
-    volumes:
-      - "${DOCKER_VOLUMES}/faster-whisper/data:/config"
-    # ports:
-    #   - 10300:10300
+    # devices:
+    #   - /path/to/device:/path/to/device #optional
     restart: unless-stopped
-  # wyoming-whisper:
-  #   container_name: homeassistant-whisper
-  #   stdin_open: true
-  #   tty: true
-  #   ports:
-  #     - 10300:10300
-  #   volumes:
-  #     - "${DOCKER_VOLUMES}/homeassistant-whisper/:/data"
-  #   image: rhasspy/wyoming-whisper
-  #   command: --model tiny-int8 --language en
-  #   restart: unless-stopped
-  # wyoming-piper:
-  #   container_name: homeassistant-piper
-  #   stdin_open: true
-  #   tty: true
-  #   ports:
-  #     - 10200:10200
-  #   volumes:
-  #     - "${DOCKER_VOLUMES}/homeassistant-piper/:/data"
-  #   image: rhasspy/wyoming-piper
-  #   command: --voice en_US-lessac-medium
-  #   restart: unless-stopped
+    cap_add:
+     - NET_ADMIN
+     - NET_RAW

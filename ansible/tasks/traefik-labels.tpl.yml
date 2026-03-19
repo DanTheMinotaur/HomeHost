@@ -11,7 +11,19 @@ services:
 {% endif %}
         networks:
             - "traefik-router"
+{% if networks is defined %}
+{% for n in networks %}
+            - "{{n}}"
+{% endfor %}
+{% endif %}
+
 
 networks:
   "traefik-router":
     external: true
+{% if networks is defined %}
+{% for n in networks %}
+  "{{n}}":
+    external: true
+{% endfor %}
+{% endif %}

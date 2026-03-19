@@ -12,3 +12,9 @@ services:
       - '$DOCKER_VOLUMES/mosquitto/data:/mosquitto/data'
       - '$DOCKER_VOLUMES/mosquitto/logs:/mosquitto/log'
     image: eclipse-mosquitto
+    networks:
+      - mqtt
+
+networks:
+  mqtt:
+    external: true

@@ -1,10 +1,10 @@
-name: {{app_name}}
+name: Frigate
 services:
-  {{app_name}}:
+  Frigate:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: ghcr.io/blakeblackshear/frigate:stable
+    image: ghcr.io/blakeblackshear/frigate:0.16.3
     shm_size: "128mb" # update for your cameras based on calculation above
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
@@ -23,4 +23,3 @@ services:
       - "127.0.0.1:8554:8554" # RTSP feeds
       - "127.0.0.1:8555:8555/tcp" # WebRTC over tcp
       - "127.0.0.1:8555:8555/udp" # WebRTC over udp
-

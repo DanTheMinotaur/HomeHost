@@ -1,11 +1,43 @@
-version: "3"
 services:
-  influxdb:
-    container_name: InfluxDB
-    ports:
-      - 8086:8086
-    volumes:
-      - $DOCKER_VOLUMES/influxdb:/var/lib/influxdb2
-    image: influxdb:2.7
+  {{app_name}}:
+    container_name: influxdb3-explorer
+    image: influxdata/influxdb3-ui:1.6.2 # Uses the InfluxDB 3 Explorer UI image, version 1.6.2
+    # ports:
+    #   - "8888:80" # Exposes the UI on host port 8888
+    environment:
+      # Connects the UI to the InfluxDB 3 Core service
+      - INFLUXDB_URL=http://influxdb3-core:8181
+      # Optional: If your InfluxDB 3 Core requires authentication, add credentials here
+      # - INFLUXDB_TOKEN=your_admin_token
+      # - INFLUXDB_ORG=your_organization
+    depends_on:
+      - influxdb3-core
     restart: unless-stopped
-    
+    networks:
+      - databases
+
+  influxdb3-core:
+    container_name: influxdb3-core
+    image: influxdb:3-core # Uses the InfluxDB 3 Core image
+    # ports:
+    #   - "8181:8181" # Exposes the InfluxDB 3 HTTP API on port 8181
+    volumes:
+      - influxdb3_data:/var/lib/influxdb3/ # Persists data to a named volume
+    restart: unless-stopped
+    # Create a admin token: docker exec -it influxdb3-core influxdb3 create token --admin
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins
+    networks:
+      - databases
+
+networks:
+  databases:
+    external: true
+
+volumes:
+  influxdb3_data: # Defines the named volume for InfluxDB 3 data persistence
