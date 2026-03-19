@@ -1,0 +1,23 @@
+---
+services:
+  Zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: ghcr.io/koenkk/zigbee2mqtt
+    restart: unless-stopped
+    volumes:
+        - zigbee2mqtt_data:/app/data
+        - /run/udev:/run/udev:ro
+    environment:
+        - TZ=Europe/Dublin
+    devices:
+        # Make sure this matched your adapter location
+        - /dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0:/dev/ttyUSB0
+    networks:
+      - mqtt
+
+networks:
+  mqtt:
+    external: true
+
+volumes:
+  zigbee2mqtt_data:
