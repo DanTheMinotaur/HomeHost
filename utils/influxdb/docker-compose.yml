@@ -1,7 +1,7 @@
 services:
   {{app_name}}:
     container_name: influxdb3-explorer
-    image: influxdata/influxdb3-ui:1.6.2 # Uses the InfluxDB 3 Explorer UI image, version 1.6.2
+    image: influxdata/influxdb3-ui:1.6.3 # Uses the InfluxDB 3 Explorer UI image, version 1.6.2
     # ports:
     #   - "8888:80" # Exposes the UI on host port 8888
     environment:
