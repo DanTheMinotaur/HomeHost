@@ -13,12 +13,17 @@
     src: "{{ compose_file }}"
     dest: "{{ docker_path }}/compose.yaml"
   register: copied_compose_file
-- name: "Copy Docker Labels"
+# - name: "Copy Docker Labels"
+#   template:
+#     src: ./labels.tpl.yml
+#     dest: "{{ docker_path }}/labels.yaml"
+#   when: domains is defined and domains
+#   register: copied_labels
+- name: "Create Dynamic Config"
   template:
-    src: ./traefik-labels.tpl.yml
-    dest: "{{ docker_path }}/labels.yaml"
+    src: ./traefik-dyn.tpl.yml
+    dest: "{{ traefik.dynamic_configs_path }}/{{ app_name }}.yaml"
   when: domains is defined and domains
-  register: copied_labels
 - name: Copy required files
   template:
     src: "{{ file }}"
