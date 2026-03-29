@@ -1,0 +1,15 @@
+http:
+  routers:
+    {{ app_name }}-router:
+      rule: "{{domains | map('regex_replace', '^(.*)$', 'Host(`\\1`)') | join(' || ')}}"
+      service: {{ app_name }}-service
+      entryPoints:
+        - https
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    {{ app_name }}-service:
+      loadBalancer:
+        servers:
+          - url: "http://{{ app_name }}:{{ domain_port }}"
