@@ -18,6 +18,8 @@ entryPoints:
 providers:
   docker:
     exposedByDefault: false
+  file:
+    directory: "/dynamic_conf/"
 
 api:
   dashboard: true

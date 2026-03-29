@@ -1,5 +1,5 @@
 services:
-  {{app_name}}:
+  HomeAssistant:
     image: "lscr.io/linuxserver/homeassistant:latest"
     container_name: homeassistant
     # network_mode: host
@@ -19,3 +19,12 @@ services:
     cap_add:
      - NET_ADMIN
      - NET_RAW
+    networks:
+      - "traefik-router"
+      - "databases"
+
+networks:
+  "traefik-router":
+    external: true
+  "databases":
+    external: true
