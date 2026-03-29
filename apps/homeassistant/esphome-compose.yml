@@ -1,0 +1,13 @@
+services:
+  ESPHome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome:2026.3
+    volumes:
+      - ${DOCKER_VOLUMES}/esphome/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    privileged: true
+    # network_mode: host
+    environment:
+      - USERNAME={{esphome.user}}
+      - PASSWORD={{esphome.pw}}
