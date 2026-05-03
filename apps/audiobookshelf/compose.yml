@@ -1,0 +1,17 @@
+services:
+  Audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    # ports:
+    #   - 13378:13378
+    volumes:
+      - $AUDIOBOOKSHELF_DATA:/data
+      - $DOCKER_VOLUMES/audiobookshelf/config:/config
+      - $DOCKER_VOLUMES/audiobookshelf/metadata:/metadata
+    environment:
+      - TZ=Europe/Dublin
+    networks:
+      - traefik-router
+
+networks:
+  "traefik-router":
+    external: true
