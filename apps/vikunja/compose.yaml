@@ -1,6 +1,6 @@
 services:
-  {{app_name}}:
-    container_name: {{app_name}}
+  Vikunja:
+    container_name: Vikunja
     image: vikunja/vikunja
     environment:
       VIKUNJA_SERVICE_PUBLICURL: {{ vikunja.domain }}
@@ -12,3 +12,9 @@ services:
       - $DOCKER_VOLUMES/vikunja/files:/app/vikunja/files
       - $DOCKER_VOLUMES/vikunja/db:/db
     restart: unless-stopped
+    networks:
+      - traefik-router
+
+networks:
+  traefik-router:
+    external: true
